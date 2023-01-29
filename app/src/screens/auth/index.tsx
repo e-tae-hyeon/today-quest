@@ -1,12 +1,15 @@
 import React from 'react';
 import {Layout} from '@shared/components/base';
 import {AuthActions, MainDoor} from 'features/auth/components/template';
+import {View} from 'react-native';
 
 function AuthScreen() {
   return (
     <Layout>
-      <MainDoor />
-      <AuthActions />
+      <View className="flex-1 p-4">
+        <MainDoor />
+        <AuthActions />
+      </View>
     </Layout>
   );
 }
