@@ -9,7 +9,7 @@ type Props = {
   color?: string;
 };
 
-function Back({type, color = colors.black}: Props) {
+function Back({type = 'back', color = colors.black}: Props) {
   const {goBack} = useNavigation();
 
   const icon = type === 'back' ? 'chevronLeft' : 'xClose';
