@@ -7,6 +7,41 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+enum Provider {
+  kakao
+}
+
+model SocialAccount {
+  id       Int      @id @default(autoincrement())
+  provider Provider
+  socialId String
+
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int  @unique
+
+  @@unique([provider, socialId])
+}
+
+model User {
+  id    Int     @id @default(autoincrement())
+  email String? @unique
+
+  SocialAccount SocialAccount?
+
+  profile Profile?
+
+  createdAt DateTime @default(now())
+}
+
+model Profile {
+  id       Int    @id @default(autoincrement())
+  nickname String
+
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int  @unique
 }
