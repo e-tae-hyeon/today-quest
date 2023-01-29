@@ -8,7 +8,7 @@ type Props = {
 
 function Layout({exceptSafeAreas, children}: Props) {
   return (
-    <SafeAreaView edges={exceptSafeAreas} className="flex-1 bg-white">
+    <SafeAreaView edges={exceptSafeAreas} className="flex-1 p-4 bg-white">
       {children}
     </SafeAreaView>
   );
