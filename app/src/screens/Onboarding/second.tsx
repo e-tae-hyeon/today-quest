@@ -1,11 +1,12 @@
-import {View, Text} from 'react-native';
 import React from 'react';
+import {Layout} from '@shared/components/base';
+import {OnboardSecond} from 'features/onboarding/components/template';
 
 function OnboardingSecondScreen() {
   return (
-    <View>
-      <Text>Onboarding</Text>
-    </View>
+    <Layout>
+      <OnboardSecond />
+    </Layout>
   );
 }
 
