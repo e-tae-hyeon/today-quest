@@ -1,11 +1,13 @@
-import {View, Text} from 'react-native';
 import React from 'react';
+import {Layout} from '@shared/components/base';
+import {AuthActions, MainDoor} from 'features/auth/components/template';
 
 function AuthScreen() {
   return (
-    <View>
-      <Text>AuthScreen</Text>
-    </View>
+    <Layout>
+      <MainDoor />
+      <AuthActions />
+    </Layout>
   );
 }
 
