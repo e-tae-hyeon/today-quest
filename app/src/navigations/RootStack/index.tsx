@@ -5,6 +5,7 @@ import OnboardingSecondScreen from 'screens/onboarding/second';
 import AuthScreen from 'screens/auth';
 import AuthEmailScreen from 'screens/auth/email';
 import VerifyEmailScreen from 'screens/auth/verify-email';
+import PolicyScreen from 'screens/auth/policy';
 import {RootStackParamList} from './types';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -26,6 +27,7 @@ function RootStack() {
         <Stack.Screen name="auth" component={AuthScreen} />
         <Stack.Screen name="authEmail" component={AuthEmailScreen} />
         <Stack.Screen name="verifyEmail" component={VerifyEmailScreen} />
+        <Stack.Screen name="policy" component={PolicyScreen} />
       </Stack.Group>
     </Stack.Navigator>
   );
