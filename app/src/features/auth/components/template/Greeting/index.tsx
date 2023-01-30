@@ -2,7 +2,7 @@ import {View} from 'react-native';
 import React from 'react';
 import {AppText} from '@shared/components/base';
 
-function MainDoor() {
+function Greeting() {
   return (
     <View className="justify-center flex-1">
       <AppText typoStyle="H1" textAlign="center">
@@ -12,4 +12,4 @@ function MainDoor() {
   );
 }
 
-export default MainDoor;
+export default Greeting;
