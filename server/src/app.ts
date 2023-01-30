@@ -4,7 +4,6 @@ import Router from "koa-router";
 import bodyParser from "koa-bodyparser";
 import KoaLogger from "koa-logger";
 import cors from "@koa/cors";
-import { Context } from "vm";
 import routes from "./routes";
 
 dotenv.config();
@@ -27,7 +26,9 @@ const router = new Router();
 app.use(bodyParser());
 app.use(KoaLogger());
 
-router.use("/", routes.routes());
+router.use(routes.routes());
 app.use(router.routes()).use(router.allowedMethods());
+
+app.listen(4000, () => console.log("server is running"));
 
 export default app;
