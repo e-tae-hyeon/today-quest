@@ -30,5 +30,6 @@ module.exports = {
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': 'error',
     'consistent-return': 'off',
+    'jsx-a11y/anchor-is-valid': 'off',
   },
 };
