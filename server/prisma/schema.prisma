@@ -38,6 +38,14 @@ model User {
   createdAt DateTime @default(now())
 }
 
+model AuthCode {
+  id    Int    @id @default(autoincrement())
+  email String @unique
+  code  String
+
+  createdAt DateTime @default(now())
+}
+
 model Profile {
   id       Int    @id @default(autoincrement())
   nickname String
