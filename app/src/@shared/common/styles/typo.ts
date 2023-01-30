@@ -16,4 +16,8 @@ const typo: Record<
   Caption: {fontFamily: 'font-default', fontSize: 12},
 };
 
+export const fontFamily = {
+  default: 'LINE Seed Sans KR',
+};
+
 export default typo;

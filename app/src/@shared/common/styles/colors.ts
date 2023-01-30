@@ -9,6 +9,8 @@ const colors = {
     600: '#525252',
   },
   black: '#444444',
+  success: '#22C55E',
+  danger: '#EF4444',
 };
 
 export default colors;
