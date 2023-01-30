@@ -1,4 +1,7 @@
+import {useNavigation} from '@react-navigation/native';
 import {Button, FadeContainer} from '@shared/components/base';
+import {sendEmail} from 'apis/auth';
+import {RootStackNavigationProps} from 'navigations/RootStack/types';
 import React, {useEffect, useState} from 'react';
 import {KeyboardAvoidingView, View} from 'react-native';
 import validator from 'validator';
@@ -7,12 +10,16 @@ import {TransparentInput} from '../../module';
 function EmailForm() {
   const [email, setEmail] = useState('');
   const [isSubmitAble, setIsSubmitAble] = useState(false);
+  const {navigate} = useNavigation<RootStackNavigationProps>();
 
   useEffect(() => {
     setIsSubmitAble(validator.isEmail(email));
   }, [email]);
 
-  const onSubmit = () => {};
+  const onSubmit = () => {
+    sendEmail(email);
+    navigate('verifyEmail');
+  };
 
   return (
     <KeyboardAvoidingView

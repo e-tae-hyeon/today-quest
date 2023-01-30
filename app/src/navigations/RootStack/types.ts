@@ -5,6 +5,7 @@ export type RootStackParamList = {
   onboardingSecond: undefined;
   auth: undefined;
   authEmail: undefined;
+  verifyEmail: undefined;
 };
 
 export type RootStackNavigationProps =
