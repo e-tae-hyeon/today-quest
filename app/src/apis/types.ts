@@ -1,11 +1,14 @@
 export type VerifyEmailResult = LoginPayload | RegisterPayload;
 
-type LoginPayload = {
+export type LoginPayload = {
   type: 'login';
-  payload: User;
+  payload: {
+    tokens: Tokens;
+    user: User;
+  };
 };
 
-type RegisterPayload = {
+export type RegisterPayload = {
   type: 'register';
   payload: {
     email: string;
@@ -15,4 +18,9 @@ type RegisterPayload = {
 export type User = {
   id: number;
   email: string;
+};
+
+export type Tokens = {
+  accessToken: string;
+  refreshToken: string;
 };

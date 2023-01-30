@@ -7,6 +7,7 @@ import {getErrorMessage} from 'utils/errors';
 import {verifyEmail} from 'apis/auth';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProps} from 'navigations/RootStack/types';
+import useLogin from 'features/auth/hooks/useLogin';
 import {TransparentInput} from '../../module';
 
 function EmailVerifyForm() {
@@ -14,12 +15,11 @@ function EmailVerifyForm() {
   const [isSubmitAble, setIsSubmitAble] = useState(false);
   const {showToast, clearToast} = useToast();
   const {navigate} = useNavigation<RootStackNavigationProps>();
+  const login = useLogin();
 
   useEffect(() => {
     setIsSubmitAble(code.length === 6);
   }, [code]);
-
-  const login = () => {};
 
   const onSubmit = async () => {
     clearToast();
@@ -28,7 +28,7 @@ function EmailVerifyForm() {
         email,
         code: parseInt(code, 10),
       });
-      if (authResult.type === 'login') login();
+      if (authResult.type === 'login') login(authResult);
       if (authResult.type === 'register') navigate('policy');
     } catch (err) {
       showToast({type: 'error', title: getErrorMessage(err)});
