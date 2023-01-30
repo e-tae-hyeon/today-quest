@@ -41,7 +41,7 @@ model User {
 model AuthCode {
   id    Int    @id @default(autoincrement())
   email String @unique
-  code  String
+  code  Int
 
   createdAt DateTime @default(now())
 }

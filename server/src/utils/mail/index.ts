@@ -16,7 +16,7 @@ export async function sendMail({
   verifyCode,
 }: {
   email: string;
-  verifyCode: string;
+  verifyCode: number;
 }) {
   return await transporter.sendMail({
     from: MAIL_ID,

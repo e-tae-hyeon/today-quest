@@ -1,4 +1,4 @@
-export function createAuthMail(verifyCode: string) {
+export function createAuthMail(verifyCode: number) {
   const body = `<!DOCTYPE html >
 <html
   xmlns="http://www.w3.org/1999/xhtml"
