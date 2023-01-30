@@ -4,7 +4,7 @@ export type RootStackParamList = {
   onboardingFrist: undefined;
   onboardingSecond: undefined;
   auth: undefined;
-  authLocal: undefined;
+  authEmail: undefined;
 };
 
 export type RootStackNavigationProps =

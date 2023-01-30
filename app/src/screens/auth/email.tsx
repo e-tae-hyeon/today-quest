@@ -5,7 +5,7 @@ import {View} from 'react-native';
 import {GuideText} from 'features/auth/components/module';
 import {EmailForm} from 'features/auth/components/template';
 
-function AuthLocalScreen() {
+function AuthEmailScreen() {
   return (
     <Layout>
       <ActionsHeader />
@@ -22,4 +22,4 @@ function AuthLocalScreen() {
   );
 }
 
-export default AuthLocalScreen;
+export default AuthEmailScreen;
