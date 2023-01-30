@@ -14,9 +14,7 @@ function AuthEmailScreen() {
           title="이메일을 입력해주세요 :)"
           description="인증번호를 전달받을 메일 주소가 필요해요"
         />
-        <View className="justify-center flex-1">
-          <EmailForm />
-        </View>
+        <EmailForm />
       </View>
     </Layout>
   );

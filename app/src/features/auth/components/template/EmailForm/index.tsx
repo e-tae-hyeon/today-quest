@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import {Button, FadeContainer} from '@shared/components/base';
 import {sendEmail} from 'apis/auth';
+import useAuthStore from 'features/auth/stores/useAuthStore';
 import {RootStackNavigationProps} from 'navigations/RootStack/types';
 import React, {useEffect, useState} from 'react';
 import {KeyboardAvoidingView, View} from 'react-native';
@@ -8,7 +9,7 @@ import validator from 'validator';
 import {TransparentInput} from '../../module';
 
 function EmailForm() {
-  const [email, setEmail] = useState('');
+  const {email, setEmail} = useAuthStore();
   const [isSubmitAble, setIsSubmitAble] = useState(false);
   const {navigate} = useNavigation<RootStackNavigationProps>();
 
@@ -23,7 +24,7 @@ function EmailForm() {
 
   return (
     <KeyboardAvoidingView
-      keyboardVerticalOffset={230}
+      keyboardVerticalOffset={120}
       behavior="padding"
       className="flex-1">
       <View className="flex-1 top-[40%]">
