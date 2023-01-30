@@ -27,7 +27,7 @@ class AuthService {
 
     return {
       type: "register",
-      payload: email,
+      payload: { email },
     };
   }
 
