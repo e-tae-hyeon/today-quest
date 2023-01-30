@@ -3,6 +3,7 @@ import db from "../utils/db";
 import AppError from "../utils/error";
 import generateRandNum from "../utils/generateRandNum";
 import { sendMail } from "../utils/mail";
+import { generateToken } from "../utils/token";
 
 class AuthService {
   async sendCodeEmail(email: string) {
@@ -19,11 +20,14 @@ class AuthService {
     const exists = await db.user.findUnique({
       where: { email },
     });
-    if (exists)
+    if (exists) {
+      const tokens = await this.generateTokens(exists.id);
+
       return {
         type: "login",
-        payload: exists,
+        payload: { user: exists, tokens },
       };
+    }
 
     return {
       type: "register",
@@ -90,6 +94,30 @@ class AuthService {
     });
 
     return code;
+  }
+
+  private async generateTokens(userId: number) {
+    const tokenItem = await this.createTokenItem(userId);
+
+    const accessToken = await generateToken({
+      type: "access_token",
+      userId,
+    });
+    const refreshToken = await generateToken({
+      type: "refresh_token",
+      tokenId: tokenItem.id,
+      rotationCounter: tokenItem.rotationCounter,
+    });
+
+    return { accessToken, refreshToken };
+  }
+
+  private async createTokenItem(userId: number) {
+    const tokenItem = await db.token.create({
+      data: { userId },
+    });
+
+    return tokenItem;
   }
 }
 
