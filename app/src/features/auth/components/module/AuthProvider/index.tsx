@@ -3,7 +3,7 @@ import React from 'react';
 import {AppText, FlexGapContainer, SvgIcon} from '@shared/components/base';
 import colors from '@shared/common/styles/colors';
 
-type Provider = 'local' | 'kakao';
+type Provider = 'email' | 'kakao';
 
 type Props = {
   provider: Provider;
@@ -37,7 +37,7 @@ const providerMap: Record<
     label: string;
   }
 > = {
-  local: {
+  email: {
     bgColor: colors.black,
     accentColor: colors.white,
     icon: 'mail',

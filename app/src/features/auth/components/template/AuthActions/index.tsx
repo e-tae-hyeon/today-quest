@@ -11,14 +11,14 @@ function AuthActions() {
     /** @todo 카카오 소셜로그인 추가 */
   };
 
-  const onPressLocal = () => {
-    navigate('authLocal');
+  const onPressEmail = () => {
+    navigate('authEmail');
   };
 
   return (
     <FlexGapContainer>
       <AuthProvider provider="kakao" onPress={onPressKakao} />
-      <AuthProvider provider="local" onPress={onPressLocal} />
+      <AuthProvider provider="email" onPress={onPressEmail} />
     </FlexGapContainer>
   );
 }
