@@ -6,7 +6,7 @@ import {View} from 'react-native';
 function AuthScreen() {
   return (
     <Layout>
-      <View className="flex-1 p-4">
+      <View className="flex-1 px-8 pb-12">
         <Greeting />
         <AuthActions />
       </View>

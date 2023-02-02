@@ -9,7 +9,7 @@ function VerifyEmailScreen() {
   return (
     <Layout>
       <ActionsHeader />
-      <View className="flex-1 p-4 py-12">
+      <View className="flex-1 px-8 py-12">
         <GuideText
           title="이메일을 확인해주세요 :)"
           description="인증번호가 전송되었어요."

@@ -9,7 +9,7 @@ function PolicyScreen() {
   return (
     <Layout>
       <ActionsHeader />
-      <View className="flex-1 p-4 py-12">
+      <View className="flex-1 px-8 py-12">
         <GuideText title="약관에 동의해주세요 :)" />
         <PolicyAgreement />
       </View>
