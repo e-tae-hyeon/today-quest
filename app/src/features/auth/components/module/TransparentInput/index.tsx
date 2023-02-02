@@ -6,7 +6,7 @@ import colors from '@shared/common/styles/colors';
 type Props = TextInputProps & {};
 
 function TransparentInput({...rest}: Props) {
-  const {fontFamily, fontSize} = typo.H4;
+  const {fontFamily, fontSize} = typo.H3;
   return (
     <TextInput
       {...rest}

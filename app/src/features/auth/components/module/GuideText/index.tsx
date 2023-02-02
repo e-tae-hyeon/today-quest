@@ -10,7 +10,7 @@ type Props = {
 function GuideText({title, description}: Props) {
   return (
     <FlexGapContainer gapSize="small">
-      <AppText typoStyle="H4">{title}</AppText>
+      <AppText typoStyle="H3">{title}</AppText>
       <AppText typoStyle="B2" color={colors.gray[400]}>
         {description}
       </AppText>
