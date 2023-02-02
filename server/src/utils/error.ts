@@ -21,6 +21,11 @@ const errorsMap = {
     statusCode: 410,
     message: "Expired",
   },
+  BadRequest: {
+    code: 4,
+    statusCode: 400,
+    message: "Bad Request",
+  },
 };
 
 type ErrorName = keyof typeof errorsMap;
@@ -41,6 +46,8 @@ export default class AppError extends Error {
 }
 
 export function errorHandler(ctx: Context, err: AppError) {
+  console.error(err);
+
   const code = err.code ?? errorsMap.Unknown.code;
   const status = err.statusCode ?? errorsMap.Unknown.statusCode;
   const message = err.message ?? errorsMap.Unknown.message;

@@ -5,6 +5,7 @@ const errorMessageMap: Record<number, string> = {
   1: '존재하지 않는 데이터입니다.',
   2: '잘못된 인증번호 입니다.',
   3: '인증번호가 만료되었습니다.',
+  4: '잘못된 요청입니다.',
 };
 
 export function getErrorMessage(err: any) {
