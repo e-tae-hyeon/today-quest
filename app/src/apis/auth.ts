@@ -27,3 +27,9 @@ export async function register(params: RegisterParams) {
 
   return res.data;
 }
+
+export async function loginByKakao(token: string) {
+  const res = await client.post<AuthPayload>('/auth/social/kakao', {token});
+
+  return res.data;
+}
