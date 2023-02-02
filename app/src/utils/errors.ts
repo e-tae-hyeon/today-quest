@@ -10,7 +10,7 @@ const errorMessageMap: Record<number, string> = {
 
 export function getErrorMessage(err: any) {
   if (isAxiosError(err)) {
-    const errorCode = err.response?.data.code;
+    const errorCode = err.response?.data.code ?? 0;
     const errorMessage = errorMessageMap[errorCode];
 
     return errorMessage;
