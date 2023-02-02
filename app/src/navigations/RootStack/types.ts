@@ -1,6 +1,9 @@
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
-export type RootStackParamList = OnboardingGroupParamList & AuthGroupParamList;
+export type RootStackParamList = OnboardingGroupParamList &
+  AuthGroupParamList & {
+    mainTab: undefined;
+  };
 
 type OnboardingGroupParamList = {
   onboardingFrist: undefined;

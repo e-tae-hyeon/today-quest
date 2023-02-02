@@ -1,14 +1,14 @@
 import useUserStore from '@shared/stores/useUserStore';
 import {applyAuthClient} from 'apis/@client';
-import {LoginPayload} from 'apis/types';
+import {AuthPayload} from 'apis/types';
 import {useCallback} from 'react';
 import authStorage from 'storages/authStorage';
 
-function useLogin() {
+function useApplyAuth() {
   const {setUser} = useUserStore();
 
-  return useCallback((auth: LoginPayload) => {
-    const {user, tokens} = auth.payload;
+  return useCallback((auth: AuthPayload) => {
+    const {user, tokens} = auth;
 
     setUser(user);
     applyAuthClient(tokens.accessToken);
@@ -16,4 +16,4 @@ function useLogin() {
   }, []);
 }
 
-export default useLogin;
+export default useApplyAuth;

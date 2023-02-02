@@ -7,7 +7,9 @@ type State = {
 
 type Actions = {
   setEmail: (by: string) => void;
+  clearEmail: () => void;
   setCode: (by: string) => void;
+  clearCode: () => void;
 };
 
 const intialState: State = {
@@ -18,7 +20,9 @@ const intialState: State = {
 const useAuthStore = create<State & Actions>()(set => ({
   ...intialState,
   setEmail: by => set(state => ({...state, email: by})),
+  clearEmail: () => set(state => ({...state, email: intialState.email})),
   setCode: by => set(state => ({...state, code: by})),
+  clearCode: () => set(state => ({...state, code: intialState.code})),
 }));
 
 export default useAuthStore;

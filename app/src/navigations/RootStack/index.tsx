@@ -6,6 +6,7 @@ import AuthScreen from 'screens/auth';
 import AuthEmailScreen from 'screens/auth/email';
 import VerifyEmailScreen from 'screens/auth/verify-email';
 import PolicyScreen from 'screens/auth/policy';
+import MainTab from 'navigations/MainTab';
 import {RootStackParamList} from './types';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -29,6 +30,7 @@ function RootStack() {
         <Stack.Screen name="verifyEmail" component={VerifyEmailScreen} />
         <Stack.Screen name="policy" component={PolicyScreen} />
       </Stack.Group>
+      <Stack.Screen name="mainTab" component={MainTab} />
     </Stack.Navigator>
   );
 }

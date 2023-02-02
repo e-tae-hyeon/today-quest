@@ -6,15 +6,11 @@ import {
 } from '@shared/common/constants/string';
 import {View} from 'react-native';
 import {ConditionalFadeContainer} from '@shared/components/module';
-import useToast from '@shared/hooks/useToast';
-import {getErrorMessage} from 'utils/errors';
-import {register} from 'apis/auth';
-import useAuthStore from 'features/auth/stores/useAuthStore';
+import useLocalAuth from 'features/auth/hooks/useLocalAuth';
 import {Agree} from '../../module';
 
 function PolicyAgreement() {
-  const {email} = useAuthStore();
-  const {showToast, clearToast} = useToast();
+  const {register} = useLocalAuth();
   const [isAgreeTerms, setIsAgreeTerms] = useState(false);
   const [isAgreePrivacy, setIsAgreePrivacy] = useState(false);
   const isCheckedAll = isAgreeTerms && isAgreePrivacy;
@@ -30,15 +26,6 @@ function PolicyAgreement() {
   };
   const toggleTerms = () => setIsAgreeTerms(!isAgreeTerms);
   const togglePrivacy = () => setIsAgreePrivacy(!isAgreePrivacy);
-
-  const onSubmit = async () => {
-    clearToast();
-    try {
-      const authResult = await register({type: 'local', email});
-    } catch (err) {
-      showToast({type: 'error', title: getErrorMessage(err)});
-    }
-  };
 
   return (
     <View className="flex-1">
@@ -64,7 +51,7 @@ function PolicyAgreement() {
         </FlexGapContainer>
       </View>
       <ConditionalFadeContainer isVisible={isCheckedAll}>
-        <Button label="가입완료" onPress={onSubmit} />
+        <Button label="가입완료" onPress={register} />
       </ConditionalFadeContainer>
     </View>
   );
