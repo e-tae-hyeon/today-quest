@@ -19,7 +19,9 @@ function AppText({
   const {fontFamily, fontSize} = typo[typoStyle];
 
   return (
-    <Text className={`${fontFamily}`} style={{fontSize, color, textAlign}}>
+    <Text
+      className={`${fontFamily}`}
+      style={{fontSize, color, textAlign, textAlignVertical: 'center'}}>
       {children}
     </Text>
   );
