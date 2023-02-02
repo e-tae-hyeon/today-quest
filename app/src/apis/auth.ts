@@ -1,5 +1,5 @@
 import client from './@client';
-import {VerifyEmailResult} from './types';
+import {AuthPayload, RegisterParams, VerifyEmailResult} from './types';
 
 export async function sendEmail(email: string) {
   const res = await client.post('/auth', {email});
@@ -18,6 +18,12 @@ export async function verifyEmail({
     email,
     code,
   });
+
+  return res.data;
+}
+
+export async function register(params: RegisterParams) {
+  const res = await client.post<AuthPayload>('/auth/register', params);
 
   return res.data;
 }
