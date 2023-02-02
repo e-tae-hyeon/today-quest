@@ -1,6 +1,7 @@
 import { Context } from "koa";
 import authService, { RegisterParams } from "../services/auth.svc";
 import { errorHandler } from "../utils/error";
+import { getKakaoUser } from "../utils/social/kakao";
 
 export async function sendEmail(ctx: Context) {
   try {
@@ -34,6 +35,38 @@ export async function register(ctx: Context) {
 
     ctx.status = 201;
     ctx.body = newUser;
+  } catch (err) {
+    errorHandler(ctx, err);
+  }
+}
+
+export async function authByKakao(ctx: Context) {
+  try {
+    const { token } = <{ token: string }>ctx.request.body;
+
+    const kakaoUser = await getKakaoUser(token);
+    const { id, kakao_account } = kakaoUser;
+
+    const socialId = id.toString();
+
+    const authResult = await authService.loginBySocial({
+      provider: "kakao",
+      socialId,
+    });
+    if (!authResult) {
+      const newUser = await authService.register({
+        type: "social",
+        provider: "kakao",
+        socialId,
+        payload: kakao_account,
+      });
+
+      ctx.body = newUser;
+      return;
+    }
+
+    ctx.body = authResult;
+    return;
   } catch (err) {
     errorHandler(ctx, err);
   }

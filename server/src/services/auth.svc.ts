@@ -45,17 +45,46 @@ class AuthService {
           email,
         },
       });
-
       const tokens = await this.generateTokens(newUser.id);
-
       return { tokens, user: newUser };
     }
 
     if (registerType === "social") {
-      const { provider, socialId } = params;
+      const { provider, socialId, payload } = params;
 
-      /** @todo 소셜로그인 추가 */
+      const newUser = await db.user.create({
+        data: {
+          SocialAccount: {
+            create: { provider, socialId, email: payload?.email },
+          },
+        },
+      });
+      const tokens = await this.generateTokens(newUser.id);
+      return { tokens, user: newUser };
     }
+
+    throw new AppError("BadRequest");
+  }
+
+  async loginBySocial({
+    provider,
+    socialId,
+  }: {
+    provider: Provider;
+    socialId: string;
+  }) {
+    const socialAccount = await db.socialAccount.findUnique({
+      where: {
+        provider_socialId: { provider, socialId },
+      },
+      include: { user: true },
+    });
+
+    if (!socialAccount) return null;
+    const user = socialAccount.user;
+    const tokens = await this.generateTokens(user.id);
+
+    return { tokens, user };
   }
 
   private async validateAuthCode({
@@ -138,4 +167,7 @@ type SocialRegisterParams = {
   type: "social";
   provider: Provider;
   socialId: string;
+  payload?: {
+    email: string | undefined;
+  };
 };
