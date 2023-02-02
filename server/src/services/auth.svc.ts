@@ -46,7 +46,9 @@ class AuthService {
         },
       });
 
-      return newUser;
+      const tokens = await this.generateTokens(newUser.id);
+
+      return { tokens, user: newUser };
     }
 
     if (registerType === "social") {
