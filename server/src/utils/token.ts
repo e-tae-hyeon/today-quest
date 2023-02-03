@@ -3,7 +3,7 @@ import JWT from "jsonwebtoken";
 const SECRET = process.env.JWT_SECRET ?? "jwtSecret";
 
 const tokenDuration = {
-  access_token: "3h",
+  access_token: "1m",
   refresh_token: "30d",
 };
 

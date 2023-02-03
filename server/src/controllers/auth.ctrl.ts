@@ -68,3 +68,15 @@ export async function authByKakao(ctx: Context) {
     errorHandler(ctx, err);
   }
 }
+
+export async function refresh(ctx: Context) {
+  try {
+    const { refreshToken } = <{ refreshToken: string }>ctx.request.body;
+
+    const tokens = await authService.refresh(refreshToken);
+
+    ctx.body = tokens;
+  } catch (err) {
+    errorHandler(ctx, err);
+  }
+}

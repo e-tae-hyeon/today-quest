@@ -7,6 +7,7 @@ const auth = new Router();
 auth.post("/", AuthCtrl.sendEmail);
 auth.post("/verify-email", AuthCtrl.verifyEmail);
 auth.post("/register", AuthCtrl.register);
+auth.post("/refresh");
 
 auth.use("/social", social.routes());
 

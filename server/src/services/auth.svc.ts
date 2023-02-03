@@ -1,9 +1,13 @@
-import { Provider } from "@prisma/client";
+import { Provider, Token } from "@prisma/client";
 import db from "../utils/db";
 import AppError from "../utils/error";
 import generateRandNum from "../utils/generateRandNum";
 import { sendMail } from "../utils/mail";
-import { generateToken } from "../utils/token";
+import {
+  generateToken,
+  RefreshTokenPayload,
+  validateToken,
+} from "../utils/token";
 
 class AuthService {
   async sendCodeEmail(email: string) {
@@ -90,6 +94,43 @@ class AuthService {
     return { type: "login", payload: { tokens, user } };
   }
 
+  async refresh(token: string) {
+    const decoded = await validateToken<RefreshTokenPayload>(token);
+
+    const tokenItem = await db.token.findUnique({
+      where: { id: decoded.tokenId },
+    });
+
+    if (!tokenItem) throw new AppError("NotFound");
+    if (tokenItem.blocked) throw new AppError("Forbidden");
+    if (tokenItem.rotationCounter !== decoded.rotationCounter) {
+      await db.token.update({
+        where: {
+          id: tokenItem.id,
+        },
+        data: {
+          blocked: true,
+        },
+      });
+      throw new AppError("Forbidden");
+    }
+
+    tokenItem.rotationCounter += 1;
+
+    await db.token.update({
+      where: {
+        id: tokenItem.id,
+      },
+      data: {
+        rotationCounter: tokenItem.rotationCounter,
+      },
+    });
+
+    const tokens = await this.generateTokens(tokenItem.userId, tokenItem);
+
+    return tokens;
+  }
+
   private async validateAuthCode({
     email,
     code,
@@ -130,8 +171,8 @@ class AuthService {
     return code;
   }
 
-  private async generateTokens(userId: number) {
-    const tokenItem = await this.createTokenItem(userId);
+  private async generateTokens(userId: number, tokenItem: Token | null = null) {
+    const token = tokenItem ?? (await this.createTokenItem(userId));
 
     const accessToken = await generateToken({
       type: "access_token",
@@ -139,8 +180,8 @@ class AuthService {
     });
     const refreshToken = await generateToken({
       type: "refresh_token",
-      tokenId: tokenItem.id,
-      rotationCounter: tokenItem.rotationCounter,
+      tokenId: token.id,
+      rotationCounter: token.rotationCounter,
     });
 
     return { accessToken, refreshToken };
