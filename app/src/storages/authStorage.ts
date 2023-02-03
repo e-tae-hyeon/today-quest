@@ -1,19 +1,19 @@
 import {Tokens} from 'apis/types';
 import EncryptedStorage from 'react-native-encrypted-storage';
 
-const KEY = 'AUTH';
+type Key = 'tokens';
 
 const authStorage = {
-  async set(tokens: Tokens) {
+  async setTokens(tokens: Tokens) {
     try {
-      await EncryptedStorage.setItem(KEY, JSON.stringify(tokens));
+      await EncryptedStorage.setItem('tokens', JSON.stringify(tokens));
     } catch (err) {
       //
     }
   },
-  async get() {
+  async getTokens() {
     try {
-      const data = await EncryptedStorage.getItem(KEY);
+      const data = await EncryptedStorage.getItem('tokens');
 
       if (!data) return undefined;
 
@@ -22,9 +22,9 @@ const authStorage = {
       //
     }
   },
-  async clear() {
+  async clear(key: Key) {
     try {
-      await EncryptedStorage.removeItem(KEY);
+      await EncryptedStorage.removeItem(key);
     } catch (err) {
       //
     }

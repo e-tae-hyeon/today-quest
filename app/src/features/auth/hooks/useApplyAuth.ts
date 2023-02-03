@@ -12,7 +12,7 @@ function useApplyAuth() {
 
     setUser(user);
     applyAuthClient(tokens.accessToken);
-    authStorage.set(tokens);
+    authStorage.setTokens(tokens);
   }, []);
 }
 
