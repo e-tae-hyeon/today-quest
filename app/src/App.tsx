@@ -1,16 +1,17 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {Toast} from '@shared/components/module';
-import useSystemStore from '@shared/stores/useSystemStore';
+import useFirstLaunch from '@shared/hooks/useFirstLaunch';
 import RootStack from 'navigations/RootStack';
 import React, {useEffect} from 'react';
 
 function App() {
-  const loadIsFirstLaunched = useSystemStore(
-    store => store.loadIsFirstLaunched,
-  );
+  const {loadIsFirstLaunched} = useFirstLaunch();
 
   useEffect(() => {
-    loadIsFirstLaunched();
+    const load = async () => {
+      await loadIsFirstLaunched();
+    };
+    load();
   }, []);
 
   return (

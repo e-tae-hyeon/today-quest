@@ -3,16 +3,16 @@ import React from 'react';
 import {BottomButton} from '@shared/components/base';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackNavigationProps} from 'navigations/RootStack/types';
-import useSystemStore from '@shared/stores/useSystemStore';
+import useFirstLaunch from '@shared/hooks/useFirstLaunch';
 import {Writing} from '../../module';
 
 function OnboardSecond() {
   const {navigate} = useNavigation<RootStackNavigationProps>();
-  const launcheFirst = useSystemStore(store => store.launchFirst);
+  const {launchFirst} = useFirstLaunch();
 
   const start = () => {
     navigate('auth');
-    launcheFirst();
+    launchFirst();
   };
 
   return (
