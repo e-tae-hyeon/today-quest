@@ -59,3 +59,7 @@ export type SocialRegisterPayload = {
     email?: string;
   };
 };
+
+export type UpdateProfileParams = {
+  nickname: string;
+};
