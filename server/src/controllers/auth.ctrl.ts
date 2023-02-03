@@ -59,9 +59,11 @@ export async function authByKakao(ctx: Context) {
         type: authResult.type,
         payload: { provider: "kakao", socialId, socialAccount: kakao_account },
       };
+      return;
     }
 
     ctx.body = authResult;
+    return;
   } catch (err) {
     errorHandler(ctx, err);
   }
