@@ -51,7 +51,7 @@ model AuthCode {
 
 model Profile {
   id       Int    @id @default(autoincrement())
-  nickname String
+  nickname String @default("오하루")
 
   user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int  @unique

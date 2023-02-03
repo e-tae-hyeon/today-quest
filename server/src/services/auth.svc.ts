@@ -43,6 +43,7 @@ class AuthService {
       const newUser = await db.user.create({
         data: {
           email,
+          profile: { create: true },
         },
       });
       const tokens = await this.generateTokens(newUser.id);
@@ -57,6 +58,7 @@ class AuthService {
           SocialAccount: {
             create: { provider, socialId, email: payload?.email },
           },
+          profile: { create: true },
         },
       });
       const tokens = await this.generateTokens(newUser.id);
