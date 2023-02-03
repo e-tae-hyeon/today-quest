@@ -10,10 +10,10 @@ const client = axios.create({
 
 export default client;
 
-export function applyAuthClient(accessToken: string) {
+export function applyTokenClient(accessToken: string) {
   client.defaults.headers.Authorization = `Bearer ${accessToken}`;
 }
 
-export function clearAuthClient() {
+export function clearTokenClient() {
   client.defaults.headers.Authorization = '';
 }
