@@ -82,11 +82,12 @@ class AuthService {
       include: { user: true },
     });
 
-    if (!socialAccount) return null;
+    if (!socialAccount) return { type: "register" };
+
     const user = socialAccount.user;
     const tokens = await this.generateTokens(user.id);
 
-    return { tokens, user };
+    return { type: "login", payload: { tokens, user } };
   }
 
   private async validateAuthCode({

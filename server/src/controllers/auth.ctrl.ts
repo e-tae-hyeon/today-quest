@@ -53,20 +53,15 @@ export async function authByKakao(ctx: Context) {
       provider: "kakao",
       socialId,
     });
-    if (!authResult) {
-      const newUser = await authService.register({
-        type: "social",
-        provider: "kakao",
-        socialId,
-        payload: kakao_account,
-      });
 
-      ctx.body = newUser;
-      return;
+    if (authResult.type === "register") {
+      ctx.body = {
+        type: authResult.type,
+        payload: { provider: "kakao", socialId, socialAccount: kakao_account },
+      };
     }
 
     ctx.body = authResult;
-    return;
   } catch (err) {
     errorHandler(ctx, err);
   }
