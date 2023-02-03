@@ -7,6 +7,61 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+enum Provider {
+  kakao
+}
+
+model SocialAccount {
+  id       Int      @id @default(autoincrement())
+  provider Provider
+  socialId String
+
+  email String?
+
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int  @unique
+
+  @@unique([provider, socialId])
+}
+
+model User {
+  id    Int     @id @default(autoincrement())
+  email String? @unique
+
+  SocialAccount SocialAccount?
+  Token         Token[]
+
+  profile Profile?
+
+  createdAt DateTime @default(now())
+}
+
+model AuthCode {
+  id    Int    @id @default(autoincrement())
+  email String @unique
+  code  Int
+
+  createdAt DateTime @default(now())
+}
+
+model Profile {
+  id       Int    @id @default(autoincrement())
+  nickname String @default("오하루")
+
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int  @unique
+}
+
+model Token {
+  id              Int     @id @default(autoincrement())
+  userId          Int
+  rotationCounter Int     @default(0)
+  blocked         Boolean @default(false)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
