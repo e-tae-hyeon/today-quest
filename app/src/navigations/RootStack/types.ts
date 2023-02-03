@@ -3,6 +3,7 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 export type RootStackParamList = OnboardingGroupParamList &
   AuthGroupParamList & {
     mainTab: undefined;
+    initProfile: undefined;
   };
 
 type OnboardingGroupParamList = {
@@ -15,7 +16,6 @@ type AuthGroupParamList = {
   authEmail: undefined;
   verifyEmail: undefined;
   policy: undefined;
-  initProfile: undefined;
 };
 
 export type RootStackNavigationProps =

@@ -10,7 +10,7 @@ import {TransparentInput} from '../../module';
 function InitProfileForm() {
   const [nickname, setNickname] = useState('');
   const [isSubmitAble, setIsSubmitAble] = useState(false);
-  const {navigate} = useNavigation<RootStackNavigationProps>();
+  const {replace} = useNavigation<RootStackNavigationProps>();
 
   useEffect(() => {
     setIsSubmitAble(!!nickname);
@@ -18,7 +18,7 @@ function InitProfileForm() {
 
   const onSubmit = async () => {
     await updateProfile({nickname});
-    navigate('mainTab');
+    replace('mainTab');
   };
 
   return (

@@ -16,7 +16,7 @@ function useLocalAuth() {
     setRegisterTemp,
     clearCode,
   } = useAuthStore();
-  const {navigate} = useNavigation<RootStackNavigationProps>();
+  const {navigate, replace} = useNavigation<RootStackNavigationProps>();
   const {showToast, clearToast} = useToast();
   const applyAuth = useApplyAuth();
 
@@ -68,7 +68,7 @@ function useLocalAuth() {
     try {
       const authPayload = await AuthApi.register(registerTemp);
       applyAuth(authPayload);
-      navigate('initProfile');
+      replace('initProfile');
     } catch (err) {
       showToast({type: 'error', title: getErrorMessage(err)});
     }

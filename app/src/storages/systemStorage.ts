@@ -17,6 +17,7 @@ const systemStorage = {
       return false;
     } catch (err) {
       //
+      return true;
     }
   },
   async clear(key: Key) {

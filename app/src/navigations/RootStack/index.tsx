@@ -38,10 +38,10 @@ function RootStack() {
           <Stack.Screen name="authEmail" component={AuthEmailScreen} />
           <Stack.Screen name="verifyEmail" component={VerifyEmailScreen} />
           <Stack.Screen name="policy" component={PolicyScreen} />
-          <Stack.Screen name="initProfile" component={InitProfileScreen} />
         </Stack.Group>
       )}
       <Stack.Screen name="mainTab" component={MainTab} />
+      <Stack.Screen name="initProfile" component={InitProfileScreen} />
     </Stack.Navigator>
   );
 }
