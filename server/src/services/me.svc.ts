@@ -1,6 +1,14 @@
 import db from "../utils/db";
 
 class MeService {
+  async getProfile(userId: number) {
+    const profile = await db.profile.findUnique({
+      where: { userId },
+    });
+
+    return profile;
+  }
+
   async updateProfile(params: UpdateProfileParams) {
     const { userId, nickname } = params;
     const profile = await db.profile.update({

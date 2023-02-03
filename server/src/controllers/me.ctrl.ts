@@ -2,6 +2,18 @@ import { Context } from "koa";
 import meService from "../services/me.svc";
 import { errorHandler } from "../utils/error";
 
+export async function getMyProfile(ctx: Context) {
+  try {
+    const { userId } = ctx.state.user;
+
+    const myProfile = await meService.getProfile(userId);
+
+    ctx.body = myProfile;
+  } catch (err) {
+    errorHandler(ctx, err);
+  }
+}
+
 export async function updateProfile(ctx: Context) {
   try {
     const { userId } = ctx.state.user;
@@ -11,7 +23,6 @@ export async function updateProfile(ctx: Context) {
 
     ctx.body = profile;
   } catch (err) {
-    console.error(err);
     errorHandler(ctx, err);
   }
 }
