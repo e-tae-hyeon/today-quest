@@ -26,6 +26,11 @@ const errorsMap = {
     statusCode: 400,
     message: "Bad Request",
   },
+  Unauthorized: {
+    code: 5,
+    statusCode: 401,
+    message: "Unauthorized",
+  },
 };
 
 type ErrorName = keyof typeof errorsMap;
