@@ -1,5 +1,10 @@
 import client from './@client';
-import {AuthPayload, RegisterParams, VerifyEmailResult} from './types';
+import {
+  AuthPayload,
+  RegisterParams,
+  SocialLoginResult,
+  VerifyEmailResult,
+} from './types';
 
 export async function sendEmail(email: string) {
   const res = await client.post('/auth', {email});
@@ -29,7 +34,9 @@ export async function register(params: RegisterParams) {
 }
 
 export async function loginByKakao(token: string) {
-  const res = await client.post<AuthPayload>('/auth/social/kakao', {token});
+  const res = await client.post<SocialLoginResult>('/auth/social/kakao', {
+    token,
+  });
 
   return res.data;
 }

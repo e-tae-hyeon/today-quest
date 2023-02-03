@@ -7,7 +7,15 @@ import useAuthStore from '../stores/useAuthStore';
 import useApplyAuth from './useApplyAuth';
 
 function useLocalAuth() {
-  const {email, code, setEmail, setCode, clearCode} = useAuthStore();
+  const {
+    email,
+    code,
+    registerTemp,
+    setEmail,
+    setCode,
+    setRegisterTemp,
+    clearCode,
+  } = useAuthStore();
   const {navigate} = useNavigation<RootStackNavigationProps>();
   const {showToast, clearToast} = useToast();
   const applyAuth = useApplyAuth();
@@ -43,6 +51,10 @@ function useLocalAuth() {
         applyAuth(payload);
         navigate('mainTab');
       } else if (type === 'register') {
+        setRegisterTemp({
+          type: 'local',
+          email,
+        });
         navigate('policy');
       }
     } catch (err) {
@@ -52,10 +64,11 @@ function useLocalAuth() {
 
   const register = async () => {
     clearToast();
+    if (!registerTemp) return;
     try {
-      const authPayload = await AuthApi.register({type: 'local', email});
+      const authPayload = await AuthApi.register(registerTemp);
       applyAuth(authPayload);
-      navigate('mainTab');
+      navigate('initProfile');
     } catch (err) {
       showToast({type: 'error', title: getErrorMessage(err)});
     }

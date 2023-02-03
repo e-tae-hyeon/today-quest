@@ -15,6 +15,7 @@ type AuthGroupParamList = {
   authEmail: undefined;
   verifyEmail: undefined;
   policy: undefined;
+  initProfile: undefined;
 };
 
 export type RootStackNavigationProps =

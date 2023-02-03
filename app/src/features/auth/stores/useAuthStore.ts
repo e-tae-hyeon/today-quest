@@ -1,8 +1,10 @@
+import {RegisterParams} from 'apis/types';
 import {create} from 'zustand';
 
 type State = {
   email: string;
   code: string;
+  registerTemp: RegisterParams | null;
 };
 
 type Actions = {
@@ -10,19 +12,25 @@ type Actions = {
   clearEmail: () => void;
   setCode: (by: string) => void;
   clearCode: () => void;
+  setRegisterTemp: (by: RegisterParams) => void;
+  clearRegisterTemp: () => void;
 };
 
-const intialState: State = {
+const initialState: State = {
   email: '',
   code: '',
+  registerTemp: null,
 };
 
 const useAuthStore = create<State & Actions>()(set => ({
-  ...intialState,
+  ...initialState,
   setEmail: by => set(state => ({...state, email: by})),
-  clearEmail: () => set(state => ({...state, email: intialState.email})),
+  clearEmail: () => set(state => ({...state, email: initialState.email})),
   setCode: by => set(state => ({...state, code: by})),
-  clearCode: () => set(state => ({...state, code: intialState.code})),
+  clearCode: () => set(state => ({...state, code: initialState.code})),
+  setRegisterTemp: by => set(state => ({...state, registerTemp: by})),
+  clearRegisterTemp: () =>
+    set(state => ({...state, registerTemp: initialState.registerTemp})),
 }));
 
 export default useAuthStore;
