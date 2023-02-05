@@ -1,7 +1,7 @@
 import { Provider, Token } from "@prisma/client";
 import db from "../utils/db";
 import AppError from "../utils/error";
-import generateRandNum from "../utils/generateRandNum";
+import { generateRandSixDigit } from "../utils/generateRandNum";
 import { sendMail } from "../utils/mail";
 import {
   generateToken,
@@ -159,7 +159,7 @@ class AuthService {
     });
     if (exists) await db.authCode.delete({ where: { id: exists.id } });
 
-    const code = generateRandNum();
+    const code = generateRandSixDigit();
 
     await db.authCode.create({
       data: {
