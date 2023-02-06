@@ -6,9 +6,9 @@ export async function getMyTodayQuests(ctx: Context) {
   try {
     const { userId } = ctx.state.user;
 
-    const todayQuests = await myQuestsService.getTodayQuests(userId);
+    const todayQuest = await myQuestsService.getTodayQuest(userId);
 
-    ctx.body = todayQuests;
+    ctx.body = todayQuest;
   } catch (err) {
     errorHandler(ctx, err);
   }

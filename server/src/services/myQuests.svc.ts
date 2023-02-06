@@ -1,62 +1,38 @@
 import db from "../utils/db";
-import AppError from "../utils/error";
 import { generateRandNum } from "../utils/generateRandNum";
 import getRandomPick from "../utils/getRandomPick";
+import checkDifferentDay from "../utils/checkDifferentDay";
 
 class MyQuestsService {
-  async getTodayQuests(userId: number) {
-    const isResetToday = await this.checkResetToday();
-    const isStatusDone = await this.checkIsStatusDone(userId);
+  async getTodayQuest(userId: number) {
+    const todayQuest = await db.todayQuest.findUnique({
+      where: { userId },
+      include: { quests: true },
+    });
 
-    if (isResetToday) {
-      if (isStatusDone) {
-        const todayQuests = await this.createTodayQuests(userId);
-        return {
-          type: {
-            isReset: true,
-            status: "done",
-          },
-          data: todayQuests,
-        };
-      } else {
-        const todayQuests = await db.questItem.findMany({
-          where: { userId },
-        });
-
-        return {
-          type: {
-            isReset: true,
-            status: "doing",
-          },
-          data: todayQuests,
-        };
-      }
-    } else {
-      if (isStatusDone) {
-        return {
-          type: {
-            isReset: false,
-            status: "done",
-          },
-          data: null,
-        };
-      } else {
-        const todayQuests = await db.questItem.findMany({
-          where: { userId },
-        });
-
-        return {
-          type: {
-            isReset: false,
-            status: "doing",
-          },
-          data: todayQuests,
-        };
-      }
+    if (!todayQuest) {
+      const todayQuest = await this.createTodayQuest(userId);
+      return {
+        type: "new",
+        payload: todayQuest,
+      };
     }
+    const isReset = await this.checkNewDay(todayQuest.createdAt);
+
+    if (isReset) {
+      return {
+        type: "past",
+        payload: todayQuest,
+      };
+    }
+
+    return {
+      type: "current",
+      payload: todayQuest,
+    };
   }
 
-  private async createTodayQuests(userId: number) {
+  private async createTodayQuest(userId: number) {
     const doneQuests = await db.finishedQuestItem.findMany({
       where: { userId },
     });
@@ -84,11 +60,20 @@ class MyQuestsService {
         },
       });
 
-      const todayQuests = await db.questItem.createMany({
-        data: quests.map((quest) => ({ questId: quest.id, userId })),
+      const todayQuest = await db.todayQuest.create({
+        data: {
+          userId,
+          quests: {
+            createMany: {
+              data: quests.map((quest) => ({ questId: quest.id })),
+            },
+          },
+        },
+        include: {
+          quests: true,
+        },
       });
-
-      return todayQuests;
+      return todayQuest;
     }
 
     // 한번도 완료한 적 없는 퀘스트가 3개 미만일 때,
@@ -120,27 +105,33 @@ class MyQuestsService {
       if (!quests.includes(randomQuest)) quests.push(randomQuest);
     }
 
-    const todayQuests = await db.questItem.createMany({
-      data: quests.map((quest) => ({ questId: quest.id, userId })),
+    const todayQuest = await db.todayQuest.create({
+      data: {
+        userId,
+        quests: {
+          createMany: { data: quests.map((quest) => ({ questId: quest.id })) },
+        },
+      },
+      include: { quests: true },
     });
 
-    return todayQuests;
+    return todayQuest;
   }
 
-  private async checkResetToday() {
-    const nowHour = new Date().getHours();
+  private async checkNewDay(date: Date) {
+    const RESET_HOUR = 5;
+    const now = new Date();
 
-    return nowHour > 4;
-  }
+    // 다른 날이고, 현재시각이 5시를 지날 때
+    if (checkDifferentDay(now, date)) {
+      return now.getHours() >= RESET_HOUR;
+    }
 
-  private async checkIsStatusDone(userId: number) {
-    const user = await db.user.findUnique({
-      where: { id: userId },
-    });
+    // 같은 날이고, today quest를 만든 시간이 5시 이전이고, 현재시각이 5시를 지날 때
+    if (date.getHours() < RESET_HOUR && now.getHours() >= RESET_HOUR)
+      return true;
 
-    if (!user) throw new AppError("Unauthorized");
-
-    return user.todayStatus === "done";
+    return false;
   }
 }
 
