@@ -1,8 +1,8 @@
 import client from './@client';
-import {UpdateProfileParams} from './types';
+import {UpdateProfileParams, User} from './types';
 
-export async function getMyProfile() {
-  const res = await client.get('/me');
+export async function getMe() {
+  const res = await client.get<User>('/me');
 
   return res.data;
 }
