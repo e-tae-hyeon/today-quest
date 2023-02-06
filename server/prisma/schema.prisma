@@ -28,23 +28,16 @@ model SocialAccount {
   @@unique([provider, socialId])
 }
 
-enum TodayStatus {
-  doing
-  done
-}
-
 model User {
   id    Int     @id @default(autoincrement())
   email String? @unique
-
-  todayStatus TodayStatus @default(done)
 
   SocialAccount SocialAccount?
   Token         Token[]
 
   profile        Profile?
+  todayQuest     TodayQuest?
   writtenQuests  Quest[]
-  todayQuests    QuestItem[]
   finishedQuests FinishedQuestItem[]
 
   createdAt DateTime @default(now())
@@ -92,18 +85,23 @@ model Quest {
   @@index(userId)
 }
 
-model QuestItem {
-  id    Int   @id @default(autoincrement())
-  quest Quest @relation(fields: [questId], references: [id], onDelete: Cascade)
-  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+model TodayQuest {
+  id     Int         @id @default(autoincrement())
+  user   User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int         @unique
+  quests QuestItem[]
 
   createdAt DateTime @default(now())
+}
 
-  questId Int
-  userId  Int
+model QuestItem {
+  id           Int        @id @default(autoincrement())
+  quest        Quest      @relation(fields: [questId], references: [id], onDelete: Cascade)
+  questId      Int
+  TodayQuest   TodayQuest @relation(fields: [todayQuestId], references: [id], onDelete: Cascade)
+  todayQuestId Int
 
-  @@unique([questId, userId])
-  @@index(userId)
+  createdAt DateTime @default(now())
 }
 
 model FinishedQuestItem {
