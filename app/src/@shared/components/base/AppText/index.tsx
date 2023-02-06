@@ -1,7 +1,7 @@
 import {Text} from 'react-native';
 import React from 'react';
 import colors from '@shared/common/styles/colors';
-import typo, {TypoStyle} from '@shared/common/styles/typo';
+import {typo, TypoStyle} from '@shared/common/styles/typo';
 
 type Props = {
   typoStyle?: TypoStyle;
@@ -20,8 +20,13 @@ function AppText({
 
   return (
     <Text
-      className={`${fontFamily}`}
-      style={{fontSize, color, textAlign, textAlignVertical: 'center'}}>
+      style={{
+        fontSize,
+        color,
+        textAlign,
+        textAlignVertical: 'center',
+        fontFamily,
+      }}>
       {children}
     </Text>
   );
