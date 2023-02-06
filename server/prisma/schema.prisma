@@ -20,8 +20,7 @@ model SocialAccount {
   id       Int      @id @default(autoincrement())
   provider Provider
   socialId String
-
-  email String?
+  email    String?
 
   user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int  @unique
@@ -29,14 +28,24 @@ model SocialAccount {
   @@unique([provider, socialId])
 }
 
+enum TodayStatus {
+  doing
+  done
+}
+
 model User {
   id    Int     @id @default(autoincrement())
   email String? @unique
 
+  todayStatus TodayStatus @default(done)
+
   SocialAccount SocialAccount?
   Token         Token[]
 
-  profile Profile?
+  profile        Profile?
+  writtenQuests  Quest[]
+  todayQuests    QuestItem[]
+  finishedQuests FinishedQuestItem[]
 
   createdAt DateTime @default(now())
 }
@@ -59,9 +68,57 @@ model Profile {
 
 model Token {
   id              Int     @id @default(autoincrement())
-  userId          Int
   rotationCounter Int     @default(0)
   blocked         Boolean @default(false)
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+}
+
+model Quest {
+  id    Int    @id @default(autoincrement())
+  title String
+
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+
+  QuestItem         QuestItem[]
+  FinishedQuestItem FinishedQuestItem[]
+
+  createdAt DateTime @default(now())
+
+  @@index(createdAt)
+  @@index(title)
+  @@index(userId)
+}
+
+model QuestItem {
+  id    Int   @id @default(autoincrement())
+  quest Quest @relation(fields: [questId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  questId Int
+  userId  Int
+
+  @@unique([questId, userId])
+  @@index(userId)
+}
+
+model FinishedQuestItem {
+  id            Int   @id @default(autoincrement())
+  quest         Quest @relation(fields: [questId], references: [id], onDelete: Cascade)
+  user          User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  finishedCount Int   @default(1)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  questId Int
+  userId  Int
+
+  @@unique([questId, userId])
+  @@index(userId)
+  @@index(updatedAt)
 }
