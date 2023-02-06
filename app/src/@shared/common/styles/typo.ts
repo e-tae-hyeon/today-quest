@@ -5,6 +5,15 @@ export const fontFamily = {
   default: 'LINE Seed Sans KR',
 };
 
+export const fontSize: Record<TypoStyle, number> = {
+  H1: 28,
+  H2: 24,
+  H3: 20,
+  B1: 16,
+  B2: 14,
+  Caption: 12,
+};
+
 export const typo: Record<
   TypoStyle,
   {
@@ -12,10 +21,10 @@ export const typo: Record<
     fontSize: number;
   }
 > = {
-  H1: {fontFamily: fontFamily.primary, fontSize: 28},
-  H2: {fontFamily: fontFamily.primary, fontSize: 24},
-  H3: {fontFamily: fontFamily.default, fontSize: 20},
-  B1: {fontFamily: fontFamily.default, fontSize: 16},
-  B2: {fontFamily: fontFamily.default, fontSize: 14},
-  Caption: {fontFamily: fontFamily.default, fontSize: 12},
+  H1: {fontFamily: fontFamily.primary, fontSize: fontSize.H1},
+  H2: {fontFamily: fontFamily.primary, fontSize: fontSize.H2},
+  H3: {fontFamily: fontFamily.default, fontSize: fontSize.H3},
+  B1: {fontFamily: fontFamily.default, fontSize: fontSize.B1},
+  B2: {fontFamily: fontFamily.default, fontSize: fontSize.B2},
+  Caption: {fontFamily: fontFamily.default, fontSize: fontSize.Caption},
 };
