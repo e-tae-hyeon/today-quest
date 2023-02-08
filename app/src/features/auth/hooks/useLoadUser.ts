@@ -1,6 +1,6 @@
 import useUserStore from '@shared/stores/useUserStore';
 import {applyTokenClient} from 'apis/@client';
-import {getMyProfile} from 'apis/me';
+import {getMe} from 'apis/me';
 import authStorage from 'storages/authStorage';
 
 function useLoadUser() {
@@ -11,7 +11,7 @@ function useLoadUser() {
     if (!tokens) return;
 
     applyTokenClient(tokens.accessToken);
-    const myProfile = await getMyProfile();
+    const myProfile = await getMe();
     setUser(myProfile);
   };
 }

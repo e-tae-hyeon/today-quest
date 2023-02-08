@@ -22,6 +22,11 @@ export type SocialRegister = {
 export type User = {
   id: number;
   email: string;
+  profile: Profile;
+};
+
+export type Profile = {
+  nickname: string;
 };
 
 export type Tokens = {
@@ -63,3 +68,20 @@ export type SocialRegisterPayload = {
 export type UpdateProfileParams = {
   nickname: string;
 };
+
+export type Quest = {
+  id: number;
+  title: string;
+};
+
+export type TodayQuest = {
+  type: TodayQuestType;
+  payload: QuestItem[];
+};
+
+export type QuestItem = {
+  id: number;
+  quest: Quest;
+};
+
+export type TodayQuestType = 'past' | 'current' | 'new';
