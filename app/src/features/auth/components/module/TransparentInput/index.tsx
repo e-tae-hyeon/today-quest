@@ -1,8 +1,8 @@
 import {TextInput, TextInputProps, View} from 'react-native';
 import React from 'react';
-import typo from '@shared/common/styles/typo';
 import colors from '@shared/common/styles/colors';
 import {AppText} from '@shared/components/base';
+import {typo} from '@shared/common/styles/typo';
 
 type Props = TextInputProps & {
   hasLengthCounter?: {
@@ -19,8 +19,8 @@ function TransparentInput({hasLengthCounter, maxLength, ...rest}: Props) {
         {...rest}
         maxLength={maxLength}
         placeholderTextColor={colors.gray[200]}
-        className={`${fontFamily} flex-1`}
-        style={{fontSize}}
+        className="flex-1"
+        style={{fontSize, fontFamily}}
       />
       {hasLengthCounter && (
         <AppText typoStyle="H3" color={colors.gray[200]}>
