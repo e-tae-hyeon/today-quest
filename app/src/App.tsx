@@ -1,5 +1,5 @@
 import {NavigationContainer} from '@react-navigation/native';
-import {Toast} from '@shared/components/module';
+import {GlobalDialog, Toast} from '@shared/components/module';
 import useFirstLaunch from '@shared/hooks/useFirstLaunch';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import useLoadUser from 'features/auth/hooks/useLoadUser';
@@ -25,6 +25,7 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <NavigationContainer>
           <RootStack />
+          <GlobalDialog />
         </NavigationContainer>
       </QueryClientProvider>
       <Toast />
