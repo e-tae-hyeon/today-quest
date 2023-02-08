@@ -1,5 +1,6 @@
 export {default as checkCircle} from 'assets/icons/check-circle.svg';
 export {default as chevronLeft} from 'assets/icons/chevron-left.svg';
+export {default as chevronRight} from 'assets/icons/chevron-right.svg';
 export {default as home} from 'assets/icons/home.svg';
 export {default as infoCircle} from 'assets/icons/info-circle.svg';
 export {default as kakao} from 'assets/icons/kakao-logo.svg';
