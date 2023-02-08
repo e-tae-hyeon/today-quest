@@ -7,7 +7,7 @@ class MyQuestsService {
   async getTodayQuest(userId: number) {
     const todayQuest = await db.todayQuest.findUnique({
       where: { userId },
-      include: { quests: true },
+      include: { quests: { include: { quest: true } } },
     });
 
     if (!todayQuest) {
@@ -22,13 +22,13 @@ class MyQuestsService {
     if (isReset) {
       return {
         type: "past",
-        payload: todayQuest,
+        payload: todayQuest.quests,
       };
     }
 
     return {
       type: "current",
-      payload: todayQuest,
+      payload: todayQuest.quests,
     };
   }
 
@@ -43,9 +43,10 @@ class MyQuestsService {
       where: { id: { notIn: doneQuestIds } },
     });
 
+    const QUEST_TAKE = 3;
+
     // 한번도 완료한 적 없는 퀘스트가 3개 이상일 때,
     // 한번도 완료한 적 없는 퀘스트 3개를 랜덤으로 뽑아, 오늘의 퀘스트로 지정.
-    const QUEST_TAKE = 3;
     if (yetQuestsCount >= QUEST_TAKE) {
       const skip = Math.max(0, generateRandNum(yetQuestsCount) - QUEST_TAKE);
       const orderBy = getRandomPick(["id", "createdAt", "title", "userId"]);
@@ -69,11 +70,9 @@ class MyQuestsService {
             },
           },
         },
-        include: {
-          quests: true,
-        },
+        include: { quests: { include: { quest: true } } },
       });
-      return todayQuest;
+      return todayQuest.quests;
     }
 
     // 한번도 완료한 적 없는 퀘스트가 3개 미만일 때,
@@ -112,10 +111,10 @@ class MyQuestsService {
           createMany: { data: quests.map((quest) => ({ questId: quest.id })) },
         },
       },
-      include: { quests: true },
+      include: { quests: { include: { quest: true } } },
     });
 
-    return todayQuest;
+    return todayQuest.quests;
   }
 
   private async checkNewDay(date: Date) {

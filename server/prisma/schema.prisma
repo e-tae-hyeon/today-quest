@@ -98,7 +98,7 @@ model QuestItem {
   id           Int        @id @default(autoincrement())
   quest        Quest      @relation(fields: [questId], references: [id], onDelete: Cascade)
   questId      Int
-  TodayQuest   TodayQuest @relation(fields: [todayQuestId], references: [id], onDelete: Cascade)
+  TodayQuest   TodayQuest? @relation(fields: [todayQuestId], references: [id], onDelete: Cascade)
   todayQuestId Int
 
   createdAt DateTime @default(now())
