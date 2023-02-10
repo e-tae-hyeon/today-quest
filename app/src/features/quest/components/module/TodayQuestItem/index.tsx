@@ -4,26 +4,39 @@ import {QuestItem} from 'apis/types';
 import {AppText, SvgIcon} from '@shared/components/base';
 import colors from '@shared/common/styles/colors';
 import {fontSize} from '@shared/common/styles/typo';
+import useDoneQuestManager from 'features/quest/hooks/useDoneQuestManager';
+import {useTodayQuestOverrideByid} from 'features/quest/stores/useTodayQuestOverrideStore';
 
 type Props = {
   quest: QuestItem;
 };
 
-/** @todo 오늘의 퀘스트 완료 기능 추가 */
 function TodayQuestItem({quest}: Props) {
   const {
     id,
     quest: {title},
   } = quest;
+  const override = useTodayQuestOverrideByid(id);
+  const {done, undone} = useDoneQuestManager();
+  const status = override?.status ?? quest.status;
+  const isDone = status === 'done';
+
+  const toggleDone = isDone ? () => undone(id) : () => done(id);
 
   return (
-    <Pressable className="px-4 pt-8 pb-4 bg-white rounded-lg shadow">
+    <Pressable
+      onPress={toggleDone}
+      className={`${
+        isDone ? 'bg-neutral-100' : 'bg-white shadow'
+      } px-4 pt-8 pb-4  rounded-lg`}>
       <View className="h-16">
-        <AppText>{title}</AppText>
+        <AppText color={isDone ? colors.gray[300] : colors.black}>
+          {title}
+        </AppText>
       </View>
       <View className="flex-row items-center justify-end">
         <AppText typoStyle="Caption" color={colors.gray[200]}>
-          눌러서 완료하기
+          {isDone ? 'complete' : '눌러서 완료하기'}
         </AppText>
         <SvgIcon
           name="chevronRight"

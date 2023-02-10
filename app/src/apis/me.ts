@@ -18,3 +18,22 @@ export async function getMyTodayQuests() {
 
   return res.data;
 }
+
+export async function doneQuest(itemId: number, controller?: AbortController) {
+  const res = await client.post(`/me/quests/${itemId}`, null, {
+    signal: controller?.signal,
+  });
+
+  return res.data;
+}
+
+export async function undoneQuest(
+  itemId: number,
+  controller?: AbortController,
+) {
+  const res = await client.delete(`/me/quests/${itemId}`, {
+    signal: controller?.signal,
+  });
+
+  return res.data;
+}

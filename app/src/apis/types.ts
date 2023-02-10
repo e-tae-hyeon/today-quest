@@ -82,6 +82,9 @@ export type TodayQuest = {
 export type QuestItem = {
   id: number;
   quest: Quest;
+  status: QuestStatus;
 };
+
+export type QuestStatus = 'doing' | 'done';
 
 export type TodayQuestType = 'past' | 'current' | 'new';
