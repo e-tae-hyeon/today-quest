@@ -85,8 +85,14 @@ model Quest {
   @@index(userId)
 }
 
+enum QuestStatus {
+  doing
+  done
+}
+
 model TodayQuest {
   id     Int         @id @default(autoincrement())
+  status QuestStatus @default(doing)
   user   User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int         @unique
   quests QuestItem[]
@@ -95,9 +101,12 @@ model TodayQuest {
 }
 
 model QuestItem {
-  id           Int        @id @default(autoincrement())
-  quest        Quest      @relation(fields: [questId], references: [id], onDelete: Cascade)
-  questId      Int
+  id      Int         @id @default(autoincrement())
+  userId  Int
+  quest   Quest       @relation(fields: [questId], references: [id], onDelete: Cascade)
+  questId Int
+  status  QuestStatus @default(doing)
+
   TodayQuest   TodayQuest? @relation(fields: [todayQuestId], references: [id], onDelete: Cascade)
   todayQuestId Int
 

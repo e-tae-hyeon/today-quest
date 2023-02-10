@@ -2,6 +2,8 @@ import db from "../utils/db";
 import { generateRandNum } from "../utils/generateRandNum";
 import getRandomPick from "../utils/getRandomPick";
 import checkDifferentDay from "../utils/checkDifferentDay";
+import { QuestStatus } from "@prisma/client";
+import AppError from "../utils/error";
 
 class MyQuestsService {
   async getTodayQuest(userId: number) {
@@ -26,13 +28,48 @@ class MyQuestsService {
       };
     }
 
+    if (todayQuest.status === "done") {
+    }
+
     return {
-      type: "current",
+      type: todayQuest.status,
       payload: todayQuest.quests,
     };
   }
 
+  async doneQuest(userId: number, itemId: number) {
+    const questItem = await db.questItem.findUnique({
+      where: { id: itemId },
+    });
+
+    if (!questItem) throw new AppError("NotFound");
+    if (questItem.userId !== userId) throw new AppError("Forbidden");
+
+    await db.questItem.update({
+      where: { id: questItem.id },
+      data: { status: "done" },
+    });
+  }
+
+  async undoneQuest(userId: number, itemId: number) {
+    const questItem = await db.questItem.findUnique({
+      where: { id: itemId },
+    });
+
+    if (!questItem) throw new AppError("NotFound");
+    if (questItem.userId !== userId) throw new AppError("Forbidden");
+
+    await db.questItem.update({
+      where: { id: questItem.id },
+      data: { status: "doing" },
+    });
+  }
+
   private async createTodayQuest(userId: number) {
+    const questCount = await db.quest.count();
+
+    if (questCount < 3) throw new AppError("Unknown");
+
     const doneQuests = await db.finishedQuestItem.findMany({
       where: { userId },
     });
@@ -66,7 +103,7 @@ class MyQuestsService {
           userId,
           quests: {
             createMany: {
-              data: quests.map((quest) => ({ questId: quest.id })),
+              data: quests.map((quest) => ({ questId: quest.id, userId })),
             },
           },
         },
@@ -108,7 +145,9 @@ class MyQuestsService {
       data: {
         userId,
         quests: {
-          createMany: { data: quests.map((quest) => ({ questId: quest.id })) },
+          createMany: {
+            data: quests.map((quest) => ({ questId: quest.id, userId })),
+          },
         },
       },
       include: { quests: { include: { quest: true } } },
@@ -132,8 +171,29 @@ class MyQuestsService {
 
     return false;
   }
+
+  private async finishQuest(userId: number, questId: number) {
+    await db.finishedQuestItem.upsert({
+      where: { questId_userId: { questId, userId } },
+      update: {
+        finishedCount: { increment: 1 },
+      },
+      create: {
+        userId,
+        questId,
+      },
+    });
+  }
 }
 
 const myQuestsService = new MyQuestsService();
 
 export default myQuestsService;
+
+type EndTodayParams = {
+  userId: number;
+  questItems: {
+    id: number;
+    status: QuestStatus;
+  }[];
+};
