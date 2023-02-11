@@ -4,6 +4,7 @@ export type RootStackParamList = OnboardingGroupParamList &
   AuthGroupParamList & {
     mainTab: undefined;
     initProfile: undefined;
+    todayResult: undefined;
   };
 
 type OnboardingGroupParamList = {

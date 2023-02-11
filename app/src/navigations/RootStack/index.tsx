@@ -10,6 +10,7 @@ import MainTab from 'navigations/MainTab';
 import InitProfileScreen from 'screens/auth/init-profile';
 import useUserStore from '@shared/stores/useUserStore';
 import useSystemStore from '@shared/stores/useSystemStore';
+import TodayResultScreen from 'screens/home/today-result';
 import {RootStackParamList} from './types';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -42,6 +43,7 @@ function RootStack() {
       )}
       <Stack.Screen name="mainTab" component={MainTab} />
       <Stack.Screen name="initProfile" component={InitProfileScreen} />
+      <Stack.Screen name="todayResult" component={TodayResultScreen} />
     </Stack.Navigator>
   );
 }

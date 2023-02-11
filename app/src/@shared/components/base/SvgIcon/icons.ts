@@ -1,4 +1,5 @@
 export {default as checkCircle} from 'assets/icons/check-circle.svg';
+export {default as chevronDown} from 'assets/icons/chevron-down.svg';
 export {default as chevronLeft} from 'assets/icons/chevron-left.svg';
 export {default as chevronRight} from 'assets/icons/chevron-right.svg';
 export {default as home} from 'assets/icons/home.svg';
