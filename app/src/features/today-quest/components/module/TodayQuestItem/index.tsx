@@ -35,7 +35,7 @@ function TodayQuestItem({questItem}: Props) {
         </AppText>
       </View>
       <View className="flex-row items-center justify-end">
-        <AppText typoStyle="Caption" color={colors.gray[200]}>
+        <AppText typoStyle="Caption" color={colors.gray[300]}>
           {isDone ? 'complete' : '눌러서 완료하기'}
         </AppText>
         <SvgIcon

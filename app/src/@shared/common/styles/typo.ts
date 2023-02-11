@@ -1,4 +1,4 @@
-export type TypoStyle = 'H1' | 'H2' | 'H3' | 'B1' | 'B2' | 'Caption';
+export type TypoStyle = 'H1' | 'H2' | 'H3' | 'B1' | 'B2' | 'Caption' | 'Unique';
 
 export const fontFamily = {
   primary: 'CookieRunOTF',
@@ -12,6 +12,7 @@ export const fontSize: Record<TypoStyle, number> = {
   B1: 16,
   B2: 14,
   Caption: 12,
+  Unique: 18,
 };
 
 export const typo: Record<
@@ -27,4 +28,5 @@ export const typo: Record<
   B1: {fontFamily: fontFamily.default, fontSize: fontSize.B1},
   B2: {fontFamily: fontFamily.default, fontSize: fontSize.B2},
   Caption: {fontFamily: fontFamily.default, fontSize: fontSize.Caption},
+  Unique: {fontFamily: fontFamily.primary, fontSize: fontSize.Unique},
 };
