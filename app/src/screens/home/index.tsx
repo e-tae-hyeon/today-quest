@@ -5,7 +5,7 @@ import {View} from 'react-native';
 import {
   TodayCompleteAction,
   TodayQuests,
-} from 'features/quest/components/template';
+} from 'features/today-quest/components/template';
 
 function HomeScreen() {
   return (

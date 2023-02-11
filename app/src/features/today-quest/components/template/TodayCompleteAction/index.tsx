@@ -1,9 +1,9 @@
 import React from 'react';
 import {AppText, FlexGapContainer, SvgIcon} from '@shared/components/base';
 import {fontSize} from '@shared/common/styles/typo';
-import useCompleteToday from 'features/quest/hooks/useCompleteToday';
 import {ConditionalFadeContainer} from '@shared/components/module';
 import {Pressable} from 'react-native';
+import useCompleteToday from 'features/today-quest/hooks/useCompleteToday';
 
 function TodayCompleteAction() {
   const {isComplete, popupCompleteDialog} = useCompleteToday();

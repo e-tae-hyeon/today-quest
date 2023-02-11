@@ -4,8 +4,8 @@ import {QuestItem} from 'apis/types';
 import {AppText, SvgIcon} from '@shared/components/base';
 import colors from '@shared/common/styles/colors';
 import {fontSize} from '@shared/common/styles/typo';
-import useDoneQuestManager from 'features/quest/hooks/useDoneQuestManager';
-import {useTodayQuestOverrideByid} from 'features/quest/stores/useTodayQuestOverrideStore';
+import {useTodayQuestOverrideByid} from 'features/today-quest/stores/useTodayQuestOverrideStore';
+import useDoneQuestManager from 'features/today-quest/hooks/useDoneQuestManager';
 
 type Props = {
   quest: QuestItem;
