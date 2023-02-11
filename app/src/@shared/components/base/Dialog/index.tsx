@@ -1,6 +1,7 @@
 import {View} from 'react-native';
 import React from 'react';
 import colors from '@shared/common/styles/colors';
+import Animated, {FadeInDown} from 'react-native-reanimated';
 import AppText from '../AppText';
 import FlexGapContainer from '../FlexGapContainer';
 import Button from '../Button';
@@ -34,7 +35,9 @@ function Dialog({
     <>
       <Overlay />
       <View className="absolute inset-0 items-center justify-center">
-        <View className="p-8 bg-white rounded-lg w-[85vw]">
+        <Animated.View
+          entering={FadeInDown}
+          className="p-8 bg-white rounded-lg w-[85vw]">
           <FlexGapContainer>
             <FlexGapContainer gapSize="small">
               <AppText typoStyle="H3">{title}</AppText>
@@ -56,7 +59,7 @@ function Dialog({
               />
             </FlexGapContainer>
           </FlexGapContainer>
-        </View>
+        </Animated.View>
       </View>
     </>
   );
