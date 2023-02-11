@@ -18,7 +18,7 @@ function TodayQuests() {
       </AppText>
       <FlexGapContainer>
         {quests.map(quest => (
-          <TodayQuestItem quest={quest} key={quest.id} />
+          <TodayQuestItem questItem={quest} key={quest.id} />
         ))}
       </FlexGapContainer>
     </FlexGapContainer>

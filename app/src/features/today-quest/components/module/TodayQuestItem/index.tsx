@@ -8,17 +8,17 @@ import {useTodayQuestOverrideByid} from 'features/today-quest/stores/useTodayQue
 import useDoneQuestManager from 'features/today-quest/hooks/useDoneQuestManager';
 
 type Props = {
-  quest: QuestItem;
+  questItem: QuestItem;
 };
 
-function TodayQuestItem({quest}: Props) {
+function TodayQuestItem({questItem}: Props) {
   const {
     id,
     quest: {title},
-  } = quest;
+  } = questItem;
   const override = useTodayQuestOverrideByid(id);
   const {done, undone} = useDoneQuestManager();
-  const status = override?.status ?? quest.status;
+  const status = override?.status ?? questItem.status;
   const isDone = status === 'done';
 
   const toggleDone = isDone ? () => undone(id) : () => done(id);
