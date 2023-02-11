@@ -1,16 +1,22 @@
+import {useNavigation} from '@react-navigation/native';
 import useDialogStore from '@shared/stores/useDialogStore';
 import type {TodayQuestType} from 'apis/types';
+import {RootStackNavigationProps} from 'navigations/RootStack/types';
 import {useEffect} from 'react';
 
-function useRenewTodayEffect(todayQuestType: TodayQuestType | 'error') {
-  const {openDialog, setConfig} = useDialogStore();
+function usePopupRenewTodayDialog(todayQuestType: TodayQuestType | 'error') {
+  const {openDialog, setConfig, closeDialog} = useDialogStore();
+  const {navigate} = useNavigation<RootStackNavigationProps>();
 
   useEffect(() => {
     if (todayQuestType === 'past') {
       setConfig({
         title: '새로운 퀘스트를 받으세요 :)',
         description: '새로운 하루가 시작되었어요!',
-        onConfirm: () => {},
+        onConfirm: () => {
+          closeDialog();
+          navigate('todayResult');
+        },
       });
       openDialog();
     }
@@ -25,4 +31,4 @@ function useRenewTodayEffect(todayQuestType: TodayQuestType | 'error') {
   }, [todayQuestType]);
 }
 
-export default useRenewTodayEffect;
+export default usePopupRenewTodayDialog;

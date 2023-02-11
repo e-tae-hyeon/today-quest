@@ -1,15 +1,15 @@
 import React from 'react';
 import {AppText, FlexGapContainer} from '@shared/components/base';
 import useUserStore from '@shared/stores/useUserStore';
-import useRenewTodayEffect from 'features/quest/hooks/useRenewTodayEffect';
 import useTodayQuestQuery from 'features/quest/hooks/useTodayQuestQuery';
+import usePopupRenewTodayDialog from 'features/quest/hooks/usePopupRenewTodayDialog';
 import {TodayQuestItem} from '../../module';
 
 function TodayQuests() {
   const user = useUserStore(store => store.user);
   const {type, quests} = useTodayQuestQuery();
 
-  useRenewTodayEffect(type);
+  usePopupRenewTodayDialog(type);
 
   return (
     <FlexGapContainer>
