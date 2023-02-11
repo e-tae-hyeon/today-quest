@@ -34,7 +34,7 @@ function Dialog({
     <>
       <Overlay />
       <View className="absolute inset-0 items-center justify-center">
-        <View className="p-8 bg-white rounded-lg w-[80vw]">
+        <View className="p-8 bg-white rounded-lg w-[85vw]">
           <FlexGapContainer>
             <FlexGapContainer gapSize="small">
               <AppText typoStyle="H3">{title}</AppText>
