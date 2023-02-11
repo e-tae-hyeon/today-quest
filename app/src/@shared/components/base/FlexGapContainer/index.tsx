@@ -4,17 +4,25 @@ import React from 'react';
 type Props = {
   direction?: 'column' | 'row';
   gapSize?: 'small' | 'medium' | 'big';
+  isCenter?: boolean;
   children: React.ReactNode;
 };
 
 function FlexGapContainer({
   direction = 'column',
   gapSize = 'medium',
+  isCenter = false,
   children,
 }: Props) {
   const gap = gapSizeMap[gapSize];
 
-  return <View style={{flexDirection: direction, gap}}>{children}</View>;
+  return (
+    <View
+      className={isCenter ? 'justify-center items-center' : ''}
+      style={{flexDirection: direction, gap}}>
+      {children}
+    </View>
+  );
 }
 
 export default FlexGapContainer;
