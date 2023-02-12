@@ -5,6 +5,8 @@ import requireUser from "../../../../middlewares/requireUser";
 const myQuests = new Router();
 
 myQuests.get("/", requireUser, MyQuestsCtrl.getMyTodayQuest);
+myQuests.get("/new", requireUser, MyQuestsCtrl.getNewMyTodayQuest);
+myQuests.get("/complete", requireUser, MyQuestsCtrl.completeToday);
 myQuests.post("/:id", requireUser, MyQuestsCtrl.doneQuest);
 myQuests.delete("/:id", requireUser, MyQuestsCtrl.undoneQuest);
 

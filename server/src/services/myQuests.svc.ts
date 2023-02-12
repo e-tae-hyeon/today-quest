@@ -28,12 +28,22 @@ class MyQuestsService {
       };
     }
 
-    if (todayQuest.status === "done") {
-    }
-
     return {
       type: todayQuest.status,
       payload: todayQuest.quests,
+    };
+  }
+
+  async getNewTodayQuest(userId: number) {
+    await db.todayQuest.delete({
+      where: { userId },
+    });
+
+    const newTodayQuest = await this.createTodayQuest(userId);
+
+    return {
+      type: "new",
+      payload: newTodayQuest,
     };
   }
 
@@ -62,6 +72,22 @@ class MyQuestsService {
     await db.questItem.update({
       where: { id: questItem.id },
       data: { status: "doing" },
+    });
+  }
+
+  async completeToday(userId: number) {
+    const todayQuest = await db.todayQuest.findUnique({
+      where: { userId },
+      include: { quests: true },
+    });
+
+    if (!todayQuest) throw new AppError("BadRequest");
+
+    todayQuest.quests.forEach((item) => this.finishQuest(userId, item.id));
+
+    await db.todayQuest.update({
+      where: { userId },
+      data: { status: "done" },
     });
   }
 

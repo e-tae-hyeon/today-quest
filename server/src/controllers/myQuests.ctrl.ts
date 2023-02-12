@@ -14,6 +14,18 @@ export async function getMyTodayQuest(ctx: Context) {
   }
 }
 
+export async function getNewMyTodayQuest(ctx: Context) {
+  try {
+    const { userId } = ctx.state.user;
+
+    const newTodayQuest = await myQuestsService.getNewTodayQuest(userId);
+
+    ctx.body = newTodayQuest;
+  } catch (err) {
+    errorHandler(ctx, err);
+  }
+}
+
 export async function doneQuest(ctx: Context) {
   try {
     const { userId } = ctx.state.user;
@@ -32,6 +44,18 @@ export async function undoneQuest(ctx: Context) {
     const { id } = <{ id: string }>ctx.params;
 
     await myQuestsService.undoneQuest(userId, parseInt(id));
+    ctx.status = 204;
+  } catch (err) {
+    errorHandler(ctx, err);
+  }
+}
+
+export async function completeToday(ctx: Context) {
+  try {
+    const { userId } = ctx.state.user;
+
+    await myQuestsService.completeToday(userId);
+
     ctx.status = 204;
   } catch (err) {
     errorHandler(ctx, err);
