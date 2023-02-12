@@ -9,7 +9,7 @@ function TodayQuests() {
   const user = useUserStore(store => store.user);
   const {type, quests} = useTodayQuestQuery();
 
-  usePopupRenewTodayDialog(type);
+  usePopupRenewTodayDialog(type!);
 
   return (
     <FlexGapContainer>

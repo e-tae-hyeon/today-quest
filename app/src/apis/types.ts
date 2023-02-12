@@ -87,4 +87,4 @@ export type QuestItem = {
 
 export type QuestStatus = 'doing' | 'done';
 
-export type TodayQuestType = 'past' | 'current' | 'new';
+export type TodayQuestType = 'past' | 'doing' | 'done' | 'new';
