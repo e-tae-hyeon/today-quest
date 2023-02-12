@@ -6,7 +6,7 @@ import {TodayResult} from 'features/today-quest/components/template';
 function TodayResultScreen() {
   return (
     <Layout>
-      <View className="p-4 py-12">
+      <View className="py-12">
         <TodayResult />
       </View>
     </Layout>

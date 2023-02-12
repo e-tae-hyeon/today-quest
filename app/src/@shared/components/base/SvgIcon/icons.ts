@@ -3,6 +3,7 @@ export {default as chevronDown} from 'assets/icons/chevron-down.svg';
 export {default as chevronLeft} from 'assets/icons/chevron-left.svg';
 export {default as chevronRight} from 'assets/icons/chevron-right.svg';
 export {default as home} from 'assets/icons/home.svg';
+export {default as image} from 'assets/icons/image.svg';
 export {default as infoCircle} from 'assets/icons/info-circle.svg';
 export {default as kakao} from 'assets/icons/kakao-logo.svg';
 export {default as mail} from 'assets/icons/mail.svg';
