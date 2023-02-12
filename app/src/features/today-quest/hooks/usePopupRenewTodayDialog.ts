@@ -6,7 +6,7 @@ import {useEffect} from 'react';
 
 function usePopupRenewTodayDialog(todayQuestType: TodayQuestType) {
   const {openDialog, setConfig, closeDialog} = useDialogStore();
-  const {navigate} = useNavigation<RootStackNavigationProps>();
+  const {replace} = useNavigation<RootStackNavigationProps>();
 
   useEffect(() => {
     switch (todayQuestType) {
@@ -16,7 +16,7 @@ function usePopupRenewTodayDialog(todayQuestType: TodayQuestType) {
           description: '새로운 하루가 시작되었어요!',
           onConfirm: () => {
             closeDialog();
-            navigate('todayResult');
+            replace('todayResult');
           },
         });
         openDialog();
