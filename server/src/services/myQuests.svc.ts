@@ -1,9 +1,9 @@
 import db from "../utils/db";
 import { generateRandNum } from "../utils/generateRandNum";
 import getRandomPick from "../utils/getRandomPick";
-import checkDifferentDay from "../utils/checkDifferentDay";
-import { QuestStatus } from "@prisma/client";
+import { checkDifferentDay, checkYesterday } from "../utils/checkDifferentDay";
 import AppError from "../utils/error";
+import getFormatDate from "../utils/getFormatDate";
 
 class MyQuestsService {
   async getTodayQuest(userId: number) {
@@ -17,20 +17,24 @@ class MyQuestsService {
       return {
         type: "new",
         payload: todayQuest,
+        date: getFormatDate(todayQuest[0].createdAt),
       };
     }
+
     const isReset = await this.checkNewDay(todayQuest.createdAt);
 
     if (isReset) {
       return {
         type: "past",
         payload: todayQuest.quests,
+        date: getFormatDate(todayQuest.createdAt),
       };
     }
 
     return {
       type: todayQuest.status,
       payload: todayQuest.quests,
+      date: getFormatDate(todayQuest.createdAt),
     };
   }
 
@@ -44,6 +48,7 @@ class MyQuestsService {
     return {
       type: "new",
       payload: newTodayQuest,
+      date: getFormatDate(newTodayQuest[0].createdAt),
     };
   }
 
@@ -186,10 +191,12 @@ class MyQuestsService {
     const RESET_HOUR = 5;
     const now = new Date();
 
-    // 다른 날이고, 현재시각이 5시를 지날 때
-    if (checkDifferentDay(now, date)) {
+    // 어제이고, 현재시각이 5시를 지날 때
+    if (checkYesterday({ today: now, target: date }))
       return now.getHours() >= RESET_HOUR;
-    }
+
+    // 어제가 아닌 다른 날일 때,
+    if (checkDifferentDay(now, date)) return true;
 
     // 같은 날이고, today quest를 만든 시간이 5시 이전이고, 현재시각이 5시를 지날 때
     if (date.getHours() < RESET_HOUR && now.getHours() >= RESET_HOUR)
@@ -215,11 +222,3 @@ class MyQuestsService {
 const myQuestsService = new MyQuestsService();
 
 export default myQuestsService;
-
-type EndTodayParams = {
-  userId: number;
-  questItems: {
-    id: number;
-    status: QuestStatus;
-  }[];
-};
