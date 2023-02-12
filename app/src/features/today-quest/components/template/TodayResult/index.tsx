@@ -5,13 +5,13 @@ import Animated, {FadeIn} from 'react-native-reanimated';
 import ViewShot from 'react-native-view-shot';
 import useCaptureSave from '@shared/hooks/useCaptureSave';
 import {View} from 'react-native';
+import useCompleteToday from 'features/today-quest/hooks/useCompleteToday';
 import {TodayResultActions, TodayResultQuestItem} from '../../module';
 
 function TodayResult() {
   const {quests} = useTodayQuestQuery();
   const {ref, captureSave} = useCaptureSave();
-
-  const handleEnd = () => {};
+  const {complete} = useCompleteToday();
 
   return (
     <FlexGapContainer gapSize="big">
@@ -31,7 +31,7 @@ function TodayResult() {
           </FlexGapContainer>
         </View>
       </ViewShot>
-      <TodayResultActions handleCapture={captureSave} handleEnd={handleEnd} />
+      <TodayResultActions handleCapture={captureSave} handleEnd={complete} />
     </FlexGapContainer>
   );
 }

@@ -37,3 +37,9 @@ export async function undoneQuest(
 
   return res.data;
 }
+
+export async function completeToday() {
+  const res = await client.get('/me/quests/complete');
+
+  return res.data;
+}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {AppText, FlexGapContainer, SvgIcon} from '@shared/components/base';
 import {fontSize} from '@shared/common/styles/typo';
 import {ConditionalFadeContainer} from '@shared/components/module';
@@ -7,6 +7,10 @@ import useCompleteToday from 'features/today-quest/hooks/useCompleteToday';
 
 function TodayCompleteAction() {
   const {isComplete, popupCompleteDialog} = useCompleteToday();
+
+  useEffect(() => {
+    if (isComplete) popupCompleteDialog();
+  }, [isComplete]);
 
   return (
     <ConditionalFadeContainer isVisible={isComplete}>
