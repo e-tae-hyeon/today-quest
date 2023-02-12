@@ -9,7 +9,7 @@ import useCompleteToday from 'features/today-quest/hooks/useCompleteToday';
 import {TodayResultActions, TodayResultQuestItem} from '../../module';
 
 function TodayResult() {
-  const {quests} = useTodayQuestQuery();
+  const {quests, date} = useTodayQuestQuery();
   const {ref, captureSave} = useCaptureSave();
   const {complete} = useCompleteToday();
 
@@ -18,7 +18,7 @@ function TodayResult() {
       <ViewShot ref={ref} options={{fileName: '오늘하루정리'}}>
         <View className="p-4 bg-white">
           <FlexGapContainer gapSize="big">
-            <AppText typoStyle="H2">오늘 하루 정리 :)</AppText>
+            <AppText typoStyle="H2">{date} 정리 :)</AppText>
             <FlexGapContainer>
               {quests.map((quest, idx) => (
                 <Animated.View

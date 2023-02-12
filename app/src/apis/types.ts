@@ -77,6 +77,7 @@ export type Quest = {
 export type TodayQuest = {
   type: TodayQuestType;
   payload: QuestItem[];
+  date: string;
 };
 
 export type QuestItem = {
