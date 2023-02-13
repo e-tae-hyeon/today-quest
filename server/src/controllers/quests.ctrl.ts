@@ -13,3 +13,15 @@ export async function getQuests(ctx: Context) {
     errorHandler(ctx, err);
   }
 }
+export async function createQuest(ctx: Context) {
+  try {
+    const { userId } = ctx.state.user;
+    const { title } = <{ title: string }>ctx.request.body;
+
+    const quest = await questsService.createQuest({ userId, title });
+
+    ctx.body = quest;
+  } catch (err) {
+    errorHandler(ctx, err);
+  }
+}

@@ -19,8 +19,26 @@ class QuestsService {
 
     return { data: quests, pageInfo: { endCursor, hasNextPage } };
   }
+
+  async createQuest(params: CreateQuestParams) {
+    const { userId, title } = params;
+
+    const quest = await db.quest.create({
+      data: {
+        userId,
+        title,
+      },
+    });
+
+    return quest;
+  }
 }
 
 const questsService = new QuestsService();
 
 export default questsService;
+
+type CreateQuestParams = {
+  userId: number;
+  title: string;
+};
