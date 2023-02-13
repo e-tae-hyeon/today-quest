@@ -103,6 +103,9 @@ class MyQuestsService {
 
     const doneQuests = await db.finishedQuestItem.findMany({
       where: { userId },
+      include: {
+        quest: true,
+      },
     });
 
     const doneQuestIds = doneQuests.map((quest) => quest.questId);
@@ -169,8 +172,11 @@ class MyQuestsService {
     const quests = [...yetQuests];
     while (quests.length < 3) {
       const randomQuest = getRandomPick(targetQuests);
-      if (!quests.includes(randomQuest)) quests.push(randomQuest);
+      if (!quests.includes(randomQuest.quest))
+        quests.push(randomQuest.quest.quest);
     }
+
+    console.log(quests);
 
     const todayQuest = await db.todayQuest.create({
       data: {
