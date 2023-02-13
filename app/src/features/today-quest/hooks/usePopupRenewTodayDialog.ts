@@ -10,13 +10,14 @@ function usePopupRenewTodayDialog(todayQuestType: TodayQuestType) {
 
   useEffect(() => {
     switch (todayQuestType) {
-      case 'past':
+      case 'past/done':
         setConfig({
           title: '새로운 퀘스트를 받으세요 :)',
           description: '새로운 하루가 시작되었어요!',
+          confirmLabel: '오늘의 퀘스트 확인하기',
           onConfirm: () => {
             closeDialog();
-            replace('todayResult');
+            replace('newQuest');
           },
         });
         openDialog();

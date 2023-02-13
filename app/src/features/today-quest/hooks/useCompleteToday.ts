@@ -30,20 +30,35 @@ function useCompleteToday() {
   }, [quests, type, overrides]);
 
   const popupCompleteDialog = () => {
-    if (type === 'doing') {
-      if (!isComplete) return;
-      setConfig({
-        title: '오늘의 퀘스트를 모두 완료했어요!',
-        description: '오늘을 마무리 할까요?',
-        cancelLabel: '좀 더 할래',
-        confirmLabel: '끝낼래',
-        onCancel: closeDialog,
-        onConfirm: () => {
-          closeDialog();
-          replace('todayResult');
-        },
-      });
-      openDialog();
+    switch (type) {
+      case 'doing':
+        if (!isComplete) return;
+        setConfig({
+          title: '오늘의 퀘스트를 모두 완료했어요!',
+          description: '오늘을 마무리 할까요?',
+          cancelLabel: '좀 더 할래',
+          confirmLabel: '끝낼래',
+          onCancel: closeDialog,
+          onConfirm: () => {
+            closeDialog();
+            replace('todayResult');
+          },
+        });
+        openDialog();
+        break;
+      case 'past/doing':
+        setConfig({
+          title: '하루를 정리하세요 :)',
+          description: '새로운 하루를 위해 하루를 정리하세요.',
+          onConfirm: () => {
+            closeDialog();
+            replace('todayResult');
+          },
+        });
+        openDialog();
+        break;
+      default:
+        break;
     }
   };
 

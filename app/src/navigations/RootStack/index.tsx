@@ -11,6 +11,7 @@ import InitProfileScreen from 'screens/auth/init-profile';
 import useUserStore from '@shared/stores/useUserStore';
 import useSystemStore from '@shared/stores/useSystemStore';
 import TodayResultScreen from 'screens/home/today-result';
+import NewQuestScreen from 'screens/home/new-quest';
 import {RootStackParamList} from './types';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -44,6 +45,7 @@ function RootStack() {
       <Stack.Screen name="mainTab" component={MainTab} />
       <Stack.Screen name="initProfile" component={InitProfileScreen} />
       <Stack.Screen name="todayResult" component={TodayResultScreen} />
+      <Stack.Screen name="newQuest" component={NewQuestScreen} />
     </Stack.Navigator>
   );
 }

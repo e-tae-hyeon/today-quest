@@ -5,6 +5,7 @@ export type RootStackParamList = OnboardingGroupParamList &
     mainTab: undefined;
     initProfile: undefined;
     todayResult: undefined;
+    newQuest: undefined;
   };
 
 type OnboardingGroupParamList = {
