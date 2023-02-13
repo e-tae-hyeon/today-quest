@@ -13,7 +13,7 @@ export function checkYesterday({
   today: Date;
   target: Date;
 }) {
-  const yesterday = target;
+  const yesterday = new Date(target.getTime());
   yesterday.setDate(target.getDate() + 1);
 
   return (
