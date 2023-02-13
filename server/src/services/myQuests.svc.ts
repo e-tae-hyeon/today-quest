@@ -25,7 +25,7 @@ class MyQuestsService {
 
     if (isReset) {
       return {
-        type: "past",
+        type: `past/${todayQuest.status}`,
         payload: todayQuest.quests,
         date: getFormatDate(todayQuest.createdAt),
       };
