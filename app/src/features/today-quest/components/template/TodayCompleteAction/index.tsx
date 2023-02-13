@@ -10,7 +10,7 @@ function TodayCompleteAction() {
 
   useEffect(() => {
     popupCompleteDialog();
-  }, []);
+  }, [isComplete]);
 
   return (
     <ConditionalFadeContainer isVisible={isComplete}>
