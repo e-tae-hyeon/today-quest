@@ -176,8 +176,6 @@ class MyQuestsService {
         quests.push(randomQuest.quest.quest);
     }
 
-    console.log(quests);
-
     const todayQuest = await db.todayQuest.create({
       data: {
         userId,
