@@ -16,17 +16,15 @@ function useCompleteToday() {
   const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
-    if (type === 'doing') {
-      quests.forEach(quest => {
-        questMap.set(quest.id, {
-          status: overrides[quest.id]?.status ?? quest.status,
-        });
+    quests.forEach(quest => {
+      questMap.set(quest.id, {
+        status: overrides[quest.id]?.status ?? quest.status,
       });
-      const isDoneEvery = [...questMap.values()].every(
-        quest => quest.status === 'done',
-      );
-      setIsComplete(isDoneEvery);
-    }
+    });
+    const isDoneEvery = [...questMap.values()].every(
+      quest => quest.status === 'done',
+    );
+    setIsComplete(isDoneEvery);
   }, [quests, type, overrides]);
 
   const popupCompleteDialog = () => {
