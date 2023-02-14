@@ -3,6 +3,7 @@ export {default as Back} from './Back';
 export {default as BaseToast} from './BaseToast';
 export {default as BottomButton} from './BottomButton';
 export {default as Button} from './Button';
+export {default as Card} from './Card';
 export {default as Dialog} from './Dialog';
 export {default as FadeContainer} from './FadeContainer';
 export {default as FlexGapContainer} from './FlexGapContainer';

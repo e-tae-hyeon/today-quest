@@ -43,3 +43,9 @@ export async function completeToday() {
 
   return res.data;
 }
+
+export async function getNewTodayQuest() {
+  const res = await client.get<TodayQuest>('/me/quests/new');
+
+  return res.data;
+}
