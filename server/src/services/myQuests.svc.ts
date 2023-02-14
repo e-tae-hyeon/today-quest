@@ -39,9 +39,15 @@ class MyQuestsService {
   }
 
   async getNewTodayQuest(userId: number) {
-    await db.todayQuest.delete({
+    const exists = await db.todayQuest.findUnique({
       where: { userId },
     });
+
+    if (exists) {
+      await db.todayQuest.delete({
+        where: { userId },
+      });
+    }
 
     const newTodayQuest = await this.createTodayQuest(userId);
 
@@ -88,7 +94,7 @@ class MyQuestsService {
 
     if (!todayQuest) throw new AppError("BadRequest");
 
-    todayQuest.quests.forEach((item) => this.finishQuest(userId, item.id));
+    todayQuest.quests.forEach((item) => this.finishQuest(userId, item.questId));
 
     await db.todayQuest.update({
       where: { userId },
@@ -97,9 +103,10 @@ class MyQuestsService {
   }
 
   private async createTodayQuest(userId: number) {
+    const QUEST_TAKE = 3;
     const questCount = await db.quest.count();
 
-    if (questCount < 3) throw new AppError("Unknown");
+    if (questCount < QUEST_TAKE) throw new AppError("Unknown");
 
     const doneQuests = await db.finishedQuestItem.findMany({
       where: { userId },
@@ -113,8 +120,6 @@ class MyQuestsService {
     const yetQuestsCount = await db.quest.count({
       where: { id: { notIn: doneQuestIds } },
     });
-
-    const QUEST_TAKE = 3;
 
     // 한번도 완료한 적 없는 퀘스트가 3개 이상일 때,
     // 한번도 완료한 적 없는 퀘스트 3개를 랜덤으로 뽑아, 오늘의 퀘스트로 지정.
@@ -172,7 +177,7 @@ class MyQuestsService {
     const quests = [...yetQuests];
     while (quests.length < 3) {
       const randomQuest = getRandomPick(targetQuests);
-      if (!quests.includes(randomQuest.quest))
+      if (!quests.includes(randomQuest.quest.quest))
         quests.push(randomQuest.quest.quest);
     }
 
