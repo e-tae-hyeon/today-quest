@@ -2,7 +2,7 @@ import colors from '@shared/common/styles/colors';
 import React from 'react';
 import * as Icons from './icons';
 
-type Props = {
+export type Props = {
   name: keyof typeof Icons;
   color?: string;
   size?: number;

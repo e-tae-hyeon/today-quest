@@ -1,7 +1,7 @@
 import { Provider, Token } from "@prisma/client";
 import db from "../utils/db";
 import AppError from "../utils/error";
-import generateRandNum from "../utils/generateRandNum";
+import { generateRandSixDigit } from "../utils/generateRandNum";
 import { sendMail } from "../utils/mail";
 import {
   generateToken,
@@ -23,6 +23,7 @@ class AuthService {
 
     const exists = await db.user.findUnique({
       where: { email },
+      include: { profile: true },
     });
     if (exists) {
       const tokens = await this.generateTokens(exists.id);
@@ -49,6 +50,9 @@ class AuthService {
           email,
           profile: { create: {} },
         },
+        include: {
+          profile: true,
+        },
       });
       const tokens = await this.generateTokens(newUser.id);
       return { tokens, user: newUser };
@@ -63,6 +67,9 @@ class AuthService {
             create: { provider, socialId, email: payload?.email },
           },
           profile: { create: {} },
+        },
+        include: {
+          profile: true,
         },
       });
       const tokens = await this.generateTokens(newUser.id);
@@ -83,7 +90,7 @@ class AuthService {
       where: {
         provider_socialId: { provider, socialId },
       },
-      include: { user: true },
+      include: { user: { include: { profile: true } } },
     });
 
     if (!socialAccount) return { type: "register" };
@@ -159,7 +166,7 @@ class AuthService {
     });
     if (exists) await db.authCode.delete({ where: { id: exists.id } });
 
-    const code = generateRandNum();
+    const code = generateRandSixDigit();
 
     await db.authCode.create({
       data: {

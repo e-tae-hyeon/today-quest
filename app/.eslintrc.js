@@ -31,5 +31,6 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': 'error',
     'consistent-return': 'off',
     'jsx-a11y/anchor-is-valid': 'off',
+    'react/no-unstable-nested-components': 'off',
   },
 };

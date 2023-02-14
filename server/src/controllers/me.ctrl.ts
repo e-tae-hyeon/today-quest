@@ -2,13 +2,13 @@ import { Context } from "koa";
 import meService from "../services/me.svc";
 import { errorHandler } from "../utils/error";
 
-export async function getMyProfile(ctx: Context) {
+export async function getMe(ctx: Context) {
   try {
     const { userId } = ctx.state.user;
 
-    const myProfile = await meService.getProfile(userId);
+    const me = await meService.getUser(userId);
 
-    ctx.body = myProfile;
+    ctx.body = me;
   } catch (err) {
     errorHandler(ctx, err);
   }

@@ -20,8 +20,7 @@ model SocialAccount {
   id       Int      @id @default(autoincrement())
   provider Provider
   socialId String
-
-  email String?
+  email    String?
 
   user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int  @unique
@@ -36,7 +35,10 @@ model User {
   SocialAccount SocialAccount?
   Token         Token[]
 
-  profile Profile?
+  profile        Profile?
+  todayQuest     TodayQuest?
+  writtenQuests  Quest[]
+  finishedQuests FinishedQuestItem[]
 
   createdAt DateTime @default(now())
 }
@@ -59,9 +61,73 @@ model Profile {
 
 model Token {
   id              Int     @id @default(autoincrement())
-  userId          Int
   rotationCounter Int     @default(0)
   blocked         Boolean @default(false)
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+}
+
+model Quest {
+  id    Int    @id @default(autoincrement())
+  title String
+
+  user   User? @relation(fields: [userId], references: [id])
+  userId Int?
+
+  QuestItem         QuestItem[]
+  FinishedQuestItem FinishedQuestItem[]
+
+  createdAt DateTime @default(now())
+
+  @@index(createdAt)
+  @@index(title)
+  @@index(userId)
+}
+
+enum QuestStatus {
+  doing
+  done
+}
+
+model TodayQuest {
+  id     Int         @id @default(autoincrement())
+  status QuestStatus @default(doing)
+  user   User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int         @unique
+  quests QuestItem[]
+
+  createdAt DateTime @default(now())
+}
+
+model QuestItem {
+  id      Int         @id @default(autoincrement())
+  userId  Int
+  quest   Quest       @relation(fields: [questId], references: [id], onDelete: Cascade)
+  questId Int
+  status  QuestStatus @default(doing)
+
+  TodayQuest   TodayQuest? @relation(fields: [todayQuestId], references: [id], onDelete: Cascade)
+  todayQuestId Int
+
+  createdAt DateTime @default(now())
+
+  @@unique([questId, userId])
+}
+
+model FinishedQuestItem {
+  id            Int   @id @default(autoincrement())
+  quest         Quest @relation(fields: [questId], references: [id], onDelete: Cascade)
+  user          User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  finishedCount Int   @default(1)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  questId Int
+  userId  Int
+
+  @@unique([questId, userId])
+  @@index(userId)
+  @@index(updatedAt)
 }

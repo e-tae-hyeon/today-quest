@@ -6,14 +6,23 @@ import AppText from '../AppText';
 export type Props = PressableProps & {
   label: string;
   theme?: 'primary' | 'secondary';
+  isFit?: boolean;
 };
 
-function Button({label, theme = 'primary', className, ...rest}: Props) {
+function Button({
+  label,
+  theme = 'primary',
+  isFit = true,
+  className,
+  ...rest
+}: Props) {
   const {bgColor, textColor} = themeMap[theme];
 
   return (
     <Pressable
-      className={`py-4 px-8 rounded-lg ${bgColor} ${className}`}
+      className={`${
+        isFit ? 'px-8' : 'flex-1'
+      } py-4 rounded-lg ${bgColor} ${className}`}
       {...rest}>
       <AppText color={textColor} textAlign="center">
         {label}
