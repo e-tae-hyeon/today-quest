@@ -23,16 +23,15 @@ function useCompleteToday() {
         status: overrides[quest.id]?.status ?? quest.status,
       });
     });
-    const isDoneEvery = [...questMap.values()].every(
-      quest => quest.status === 'done',
-    );
-    setIsComplete(isDoneEvery);
+    const questMapValues = [...questMap.values()];
+    const isDoneEvery = questMapValues.every(quest => quest.status === 'done');
+
+    setIsComplete(isDoneEvery && questMapValues.length !== 0);
   }, [quests, type, overrides]);
 
   const popupCompleteDialog = () => {
     switch (type) {
       case 'doing':
-        if (!isComplete) return;
         setConfig({
           title: '오늘의 퀘스트를 모두 완료했어요!',
           description: '오늘을 마무리 할까요?',
@@ -52,6 +51,7 @@ function useCompleteToday() {
           description: '새로운 하루를 위해 하루를 정리하세요.',
           onConfirm: () => {
             closeDialog();
+            setIsComplete(false);
             replace('todayResult');
           },
         });

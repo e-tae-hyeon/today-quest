@@ -4,13 +4,16 @@ import {fontSize} from '@shared/common/styles/typo';
 import {ConditionalFadeContainer} from '@shared/components/module';
 import {Pressable} from 'react-native';
 import useCompleteToday from 'features/today-quest/hooks/useCompleteToday';
+import useTodayQuestQuery from 'features/today-quest/hooks/useTodayQuestQuery';
 
 function TodayCompleter() {
+  const {type} = useTodayQuestQuery();
   const {isComplete, popupCompleteDialog} = useCompleteToday();
 
   useEffect(() => {
-    popupCompleteDialog();
-  }, [isComplete]);
+    if (type === 'past/doing') popupCompleteDialog();
+    if (type === 'doing' && isComplete) popupCompleteDialog();
+  }, [isComplete, type]);
 
   return (
     <ConditionalFadeContainer isVisible={isComplete}>
