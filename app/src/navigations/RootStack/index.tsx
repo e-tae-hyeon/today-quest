@@ -12,6 +12,7 @@ import useUserStore from '@shared/stores/useUserStore';
 import useSystemStore from '@shared/stores/useSystemStore';
 import TodayResultScreen from 'screens/home/today-result';
 import NewQuestScreen from 'screens/home/new-quest';
+import QuestWriteScreen from 'screens/quest/write';
 import {RootStackParamList} from './types';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -23,6 +24,7 @@ function RootStack() {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
       {isFirstLaunched && (
+        // onborading
         <Stack.Group>
           <Stack.Screen
             name="onboardingFrist"
@@ -35,6 +37,7 @@ function RootStack() {
         </Stack.Group>
       )}
       {!user && (
+        // auth
         <Stack.Group>
           <Stack.Screen name="auth" component={AuthScreen} />
           <Stack.Screen name="authEmail" component={AuthEmailScreen} />
@@ -42,10 +45,20 @@ function RootStack() {
           <Stack.Screen name="policy" component={PolicyScreen} />
         </Stack.Group>
       )}
-      <Stack.Screen name="mainTab" component={MainTab} />
-      <Stack.Screen name="initProfile" component={InitProfileScreen} />
-      <Stack.Screen name="todayResult" component={TodayResultScreen} />
-      <Stack.Screen name="newQuest" component={NewQuestScreen} />
+      {/* base */}
+      <Stack.Group>
+        <Stack.Screen name="mainTab" component={MainTab} />
+        <Stack.Screen name="initProfile" component={InitProfileScreen} />
+      </Stack.Group>
+      {/* home */}
+      <Stack.Group>
+        <Stack.Screen name="todayResult" component={TodayResultScreen} />
+        <Stack.Screen name="newQuest" component={NewQuestScreen} />
+      </Stack.Group>
+      {/* quest */}
+      <Stack.Group>
+        <Stack.Screen name="questWrite" component={QuestWriteScreen} />
+      </Stack.Group>
     </Stack.Navigator>
   );
 }

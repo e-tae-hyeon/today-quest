@@ -1,8 +1,12 @@
 import React from 'react';
 import {AppText, Button, FlexGapContainer} from '@shared/components/base';
 import {View} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {RootStackNavigationProps} from 'navigations/RootStack/types';
 
 function TodayCompletedActions() {
+  const {navigate} = useNavigation<RootStackNavigationProps>();
+
   return (
     <FlexGapContainer gapSize="big">
       <View className="items-center justify-center">
@@ -11,8 +15,14 @@ function TodayCompletedActions() {
       </View>
       <View className="px-8">
         <FlexGapContainer>
-          <Button label="오늘 하루 정리하기" />
-          <Button label="나만의 퀘스트 만들기" />
+          <Button
+            label="오늘 하루 정리하기"
+            onPress={() => navigate('todayResult')}
+          />
+          <Button
+            label="나만의 퀘스트 만들기"
+            onPress={() => navigate('questWrite')}
+          />
         </FlexGapContainer>
       </View>
     </FlexGapContainer>
