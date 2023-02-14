@@ -3,7 +3,7 @@ import {FlexGapContainer, Layout} from '@shared/components/base';
 import {Header} from '@shared/components/module';
 import {View} from 'react-native';
 import {
-  TodayCompleteAction,
+  TodayCompleter,
   TodayQuests,
 } from 'features/today-quest/components/template';
 
@@ -14,7 +14,7 @@ function HomeScreen() {
       <View className="p-4">
         <FlexGapContainer gapSize="big">
           <TodayQuests />
-          <TodayCompleteAction />
+          <TodayCompleter />
         </FlexGapContainer>
       </View>
     </Layout>

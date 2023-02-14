@@ -5,7 +5,7 @@ import {ConditionalFadeContainer} from '@shared/components/module';
 import {Pressable} from 'react-native';
 import useCompleteToday from 'features/today-quest/hooks/useCompleteToday';
 
-function TodayCompleteAction() {
+function TodayCompleter() {
   const {isComplete, popupCompleteDialog} = useCompleteToday();
 
   useEffect(() => {
@@ -24,4 +24,4 @@ function TodayCompleteAction() {
   );
 }
 
-export default TodayCompleteAction;
+export default TodayCompleter;
