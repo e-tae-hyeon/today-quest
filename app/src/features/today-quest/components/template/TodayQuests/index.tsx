@@ -3,7 +3,7 @@ import {AppText, FlexGapContainer} from '@shared/components/base';
 import useUserStore from '@shared/stores/useUserStore';
 import useTodayQuestQuery from 'features/today-quest/hooks/useTodayQuestQuery';
 import usePopupRenewTodayDialog from 'features/today-quest/hooks/usePopupRenewTodayDialog';
-import {TodayQuestItem} from '../../module';
+import {TodayQuestItemCard} from '../../module';
 
 function TodayQuests() {
   const user = useUserStore(store => store.user);
@@ -18,7 +18,7 @@ function TodayQuests() {
       </AppText>
       <FlexGapContainer>
         {quests.map(quest => (
-          <TodayQuestItem questItem={quest} key={quest.id} />
+          <TodayQuestItemCard questItem={quest} key={quest.id} />
         ))}
       </FlexGapContainer>
     </FlexGapContainer>

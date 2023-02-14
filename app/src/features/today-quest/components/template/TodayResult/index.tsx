@@ -6,7 +6,7 @@ import ViewShot from 'react-native-view-shot';
 import useCaptureSave from '@shared/hooks/useCaptureSave';
 import {View} from 'react-native';
 import useCompleteToday from 'features/today-quest/hooks/useCompleteToday';
-import {TodayResultActions, TodayResultQuestItem} from '../../module';
+import {TodayResultActions, TodayResultQuestItemCard} from '../../module';
 
 function TodayResult() {
   const {quests, date} = useTodayQuestQuery();
@@ -24,14 +24,16 @@ function TodayResult() {
                 <Animated.View
                   entering={FadeIn.delay(idx * 250)}
                   key={quest.id}>
-                  <TodayResultQuestItem questItem={quest} />
+                  <TodayResultQuestItemCard questItem={quest} />
                 </Animated.View>
               ))}
             </FlexGapContainer>
           </FlexGapContainer>
         </View>
       </ViewShot>
-      <TodayResultActions handleCapture={captureSave} handleEnd={complete} />
+      <Animated.View entering={FadeIn.delay(1000)}>
+        <TodayResultActions handleCapture={captureSave} handleEnd={complete} />
+      </Animated.View>
     </FlexGapContainer>
   );
 }
