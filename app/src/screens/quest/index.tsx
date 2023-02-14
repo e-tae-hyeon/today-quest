@@ -2,7 +2,10 @@ import React from 'react';
 import {Layout} from '@shared/components/base';
 import {Header} from '@shared/components/module';
 import {View} from 'react-native';
-import {QuestList} from 'features/quest/components/template';
+import {
+  QuestList,
+  WriteFloatingButton,
+} from 'features/quest/components/template';
 
 function QuestScreen() {
   return (
@@ -10,6 +13,7 @@ function QuestScreen() {
       <Header title="퀘스트" />
       <View className="flex-1">
         <QuestList />
+        <WriteFloatingButton />
       </View>
     </Layout>
   );

@@ -35,7 +35,7 @@ function QuestList() {
       ListFooterComponent={isFetching ? <Loader /> : null}
       showsVerticalScrollIndicator={false}
       keyExtractor={item => item.id.toString()}
-      contentContainerStyle={{padding: 16}}
+      contentContainerStyle={{padding: 16, paddingBottom: 120}}
     />
   );
 }
