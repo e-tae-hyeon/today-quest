@@ -1,5 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import useDialogStore from '@shared/stores/useDialogStore';
+import {useQueryClient} from '@tanstack/react-query';
 import {completeToday} from 'apis/me';
 import {QuestStatus} from 'apis/types';
 import {RootStackNavigationProps} from 'navigations/RootStack/types';
@@ -8,12 +9,13 @@ import useTodayQuestOverrideStore from '../stores/useTodayQuestOverrideStore';
 import useTodayQuestQuery from './useTodayQuestQuery';
 
 function useCompleteToday() {
-  const {quests, type} = useTodayQuestQuery();
-  const {openDialog, closeDialog, setConfig} = useDialogStore();
-  const {replace} = useNavigation<RootStackNavigationProps>();
   const overrides = useTodayQuestOverrideStore(store => store.overrides);
   const questMap = useRef(new Map<number, {status: QuestStatus}>()).current;
+  const {quests, type} = useTodayQuestQuery();
   const [isComplete, setIsComplete] = useState(false);
+  const {openDialog, closeDialog, setConfig} = useDialogStore();
+  const {replace} = useNavigation<RootStackNavigationProps>();
+  const queryClinet = useQueryClient();
 
   useEffect(() => {
     quests.forEach(quest => {
@@ -62,6 +64,7 @@ function useCompleteToday() {
 
   const complete = async () => {
     await completeToday();
+    queryClinet.removeQueries(['todayQuest']);
     replace('mainTab');
   };
 
