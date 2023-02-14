@@ -111,6 +111,8 @@ model QuestItem {
   todayQuestId Int
 
   createdAt DateTime @default(now())
+
+  @@unique([questId, userId])
 }
 
 model FinishedQuestItem {
