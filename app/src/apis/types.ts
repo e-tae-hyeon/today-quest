@@ -105,3 +105,7 @@ export type PageInfo = {
   endCursor: number | null;
   hasNextPage: boolean;
 };
+
+export type CreateQuestParams = {
+  title: string;
+};
