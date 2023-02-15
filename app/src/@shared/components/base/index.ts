@@ -9,5 +9,6 @@ export {default as FadeContainer} from './FadeContainer';
 export {default as FlexGapContainer} from './FlexGapContainer';
 export {default as Layout} from './Layout';
 export {default as Link} from './Link';
+export {default as Loader} from './Loader';
 export {default as Overlay} from './Overlay';
 export {default as SvgIcon} from './SvgIcon';

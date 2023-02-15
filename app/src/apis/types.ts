@@ -94,3 +94,18 @@ export type TodayQuestType =
   | 'doing'
   | 'done'
   | 'new';
+
+export type GetQuestListResult = {
+  data: Quest[];
+  pageInfo: PageInfo;
+  totalQuestCount: number;
+};
+
+export type PageInfo = {
+  endCursor: number | null;
+  hasNextPage: boolean;
+};
+
+export type CreateQuestParams = {
+  title: string;
+};

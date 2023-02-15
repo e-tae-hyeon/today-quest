@@ -9,6 +9,8 @@ class QuestsService {
       cursor: cursor ? { id: cursor } : undefined,
     });
 
+    const totalQuestCount = await db.quest.count();
+
     const endCursor = quests[quests.length - 1]?.id ?? null;
     const hasNextPage = endCursor
       ? (await db.quest.count({
@@ -17,7 +19,11 @@ class QuestsService {
         })) > 0
       : false;
 
-    return { data: quests, pageInfo: { endCursor, hasNextPage } };
+    return {
+      data: quests,
+      pageInfo: { endCursor, hasNextPage },
+      totalQuestCount,
+    };
   }
 
   async createQuest(params: CreateQuestParams) {

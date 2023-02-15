@@ -7,6 +7,7 @@ export {default as image} from 'assets/icons/image.svg';
 export {default as infoCircle} from 'assets/icons/info-circle.svg';
 export {default as kakao} from 'assets/icons/kakao-logo.svg';
 export {default as mail} from 'assets/icons/mail.svg';
+export {default as plus} from 'assets/icons/plus.svg';
 export {default as quest} from 'assets/icons/quest.svg';
 export {default as user} from 'assets/icons/user.svg';
 export {default as xClose} from 'assets/icons/x-close.svg';
