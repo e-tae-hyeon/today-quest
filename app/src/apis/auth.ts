@@ -40,3 +40,9 @@ export async function loginByKakao(token: string) {
 
   return res.data;
 }
+
+export async function unregister() {
+  const res = await client.delete('/auth');
+
+  return res.data;
+}
