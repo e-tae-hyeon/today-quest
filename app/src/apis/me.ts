@@ -1,5 +1,5 @@
 import client from './@client';
-import {GetMeResult, TodayQuest, UpdateProfileParams} from './types';
+import {GetMeResult, Profile, TodayQuest, UpdateProfileParams} from './types';
 
 export async function getMe() {
   const res = await client.get<GetMeResult>('/me');
@@ -8,7 +8,7 @@ export async function getMe() {
 }
 
 export async function updateProfile(params: UpdateProfileParams) {
-  const res = await client.put('/me/profile', params);
+  const res = await client.put<Profile>('/me/profile', params);
 
   return res.data;
 }
