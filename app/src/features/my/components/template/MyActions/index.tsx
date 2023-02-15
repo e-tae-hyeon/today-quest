@@ -1,11 +1,15 @@
-import {View, Text} from 'react-native';
 import React from 'react';
+import {Cell, FlexGapContainer} from '@shared/components/base';
+import {useNavigation} from '@react-navigation/native';
+import {RootStackNavigationProps} from 'navigations/RootStack/types';
 
 function MyActions() {
+  const {navigate} = useNavigation<RootStackNavigationProps>();
+
   return (
-    <View>
-      <Text>MyActions</Text>
-    </View>
+    <FlexGapContainer>
+      <Cell label="설정" onPress={() => navigate('settings')} />
+    </FlexGapContainer>
   );
 }
 

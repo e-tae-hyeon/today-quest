@@ -109,3 +109,8 @@ export type GetMeResult = {
   profile: Profile;
   finishedQuestCount: number;
 };
+
+export type CreateFeedbackParams = {
+  isLike: boolean;
+  content?: string;
+};

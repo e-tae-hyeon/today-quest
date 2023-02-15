@@ -32,6 +32,8 @@ type QuestGroupParamList = {
 
 type MyGroupParamList = {
   updateProfile: undefined;
+  settings: undefined;
+  feedback: undefined;
 };
 
 export type RootStackNavigationProps =

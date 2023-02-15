@@ -14,6 +14,8 @@ import NewQuestScreen from 'screens/home/new-quest';
 import QuestWriteScreen from 'screens/quest/write';
 import UpdateProfileScreen from 'screens/my/update-profile';
 import useProfileStore from 'features/auth/stores/useProfileStore';
+import SettingsScreen from 'screens/my/settings';
+import FeedBackScreen from 'screens/my/feedback';
 import {RootStackParamList} from './types';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -63,6 +65,8 @@ function RootStack() {
       {/* my */}
       <Stack.Group>
         <Stack.Screen name="updateProfile" component={UpdateProfileScreen} />
+        <Stack.Screen name="settings" component={SettingsScreen} />
+        <Stack.Screen name="feedback" component={FeedBackScreen} />
       </Stack.Group>
     </Stack.Navigator>
   );
