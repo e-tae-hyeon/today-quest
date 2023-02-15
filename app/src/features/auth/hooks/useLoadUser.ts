@@ -1,18 +1,19 @@
-import useUserStore from '@shared/stores/useUserStore';
 import {applyTokenClient} from 'apis/@client';
 import {getMe} from 'apis/me';
 import authStorage from 'storages/authStorage';
+import useProfileStore from '../stores/useProfileStore';
 
 function useLoadUser() {
-  const setUser = useUserStore(store => store.setUser);
+  const {setProfile, setFinishedQuestCount} = useProfileStore();
 
   return async () => {
     const tokens = await authStorage.getTokens();
     if (!tokens) return;
 
     applyTokenClient(tokens.accessToken);
-    const myProfile = await getMe();
-    setUser(myProfile);
+    const me = await getMe();
+    setProfile(me.profile);
+    setFinishedQuestCount(me.finishedQuestCount);
   };
 }
 

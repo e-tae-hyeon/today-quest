@@ -131,3 +131,12 @@ model FinishedQuestItem {
   @@index(userId)
   @@index(updatedAt)
 }
+
+model Feedback {
+  id      Int     @id @default(autoincrement())
+  userId  Int
+  isLike  Boolean
+  content String? @db.LongText
+
+  createdAt DateTime @default(now())
+}

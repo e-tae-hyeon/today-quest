@@ -1,15 +1,19 @@
 import db from "../utils/db";
+import AppError from "../utils/error";
 
 class MeService {
-  async getUser(userId: number) {
-    const user = await db.user.findUnique({
-      where: { id: userId },
-      include: {
-        profile: true,
-      },
+  async getProfile(userId: number) {
+    const profile = await db.profile.findUnique({
+      where: { userId },
     });
 
-    return user;
+    if (!profile) throw new AppError("NotFound");
+
+    const finishedQuestCount = await db.finishedQuestItem.count({
+      where: { userId },
+    });
+
+    return { profile, finishedQuestCount };
   }
 
   async updateProfile(params: UpdateProfileParams) {

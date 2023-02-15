@@ -3,7 +3,8 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 export type RootStackParamList = OnboardingGroupParamList &
   AuthGroupParamList &
   HomeGroupParamList &
-  QuestGroupParamList & {
+  QuestGroupParamList &
+  MyGroupParamList & {
     mainTab: undefined;
     initProfile: undefined;
   };
@@ -27,6 +28,12 @@ type HomeGroupParamList = {
 
 type QuestGroupParamList = {
   questWrite: undefined;
+};
+
+type MyGroupParamList = {
+  updateProfile: undefined;
+  settings: undefined;
+  feedback: undefined;
 };
 
 export type RootStackNavigationProps =

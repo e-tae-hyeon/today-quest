@@ -4,6 +4,8 @@ import {typo} from '@shared/common/styles/typo';
 import {AppText, Card, FlexGapContainer} from '@shared/components/base';
 import colors from '@shared/common/styles/colors';
 
+const MAX_LENGTH = 40;
+
 type Props = {
   value: string;
   onChangeText: (value: string) => void;
@@ -11,7 +13,6 @@ type Props = {
 
 function WriteInput({value, onChangeText}: Props) {
   const {fontFamily, fontSize} = typo.B1;
-  const MAX_LENGTH = 40;
 
   return (
     <FlexGapContainer gapSize="small">

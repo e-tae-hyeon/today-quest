@@ -13,18 +13,21 @@ function Button({
   label,
   theme = 'primary',
   isFit = true,
-  className,
+  disabled,
   ...rest
 }: Props) {
   const {bgColor, textColor} = themeMap[theme];
 
   return (
     <Pressable
-      className={`${
-        isFit ? 'px-8' : 'flex-1'
-      } py-4 rounded-lg ${bgColor} ${className}`}
+      className={`${isFit ? 'px-8' : 'flex-1'} py-4 rounded-lg ${
+        disabled ? themeMap.disabled.bgColor : bgColor
+      }`}
+      disabled={disabled}
       {...rest}>
-      <AppText color={textColor} textAlign="center">
+      <AppText
+        color={disabled ? themeMap.disabled.textColor : textColor}
+        textAlign="center">
         {label}
       </AppText>
     </Pressable>

@@ -19,13 +19,8 @@ export type SocialRegister = {
   payload: SocialRegisterPayload;
 };
 
-export type User = {
-  id: number;
-  email: string;
-  profile: Profile;
-};
-
 export type Profile = {
+  userId: number;
   nickname: string;
 };
 
@@ -52,7 +47,7 @@ export type SocialRegisterParams = {
 
 export type AuthPayload = {
   tokens: Tokens;
-  user: User;
+  profile: Profile;
 };
 
 export type SocialProvider = 'kakao';
@@ -108,4 +103,14 @@ export type PageInfo = {
 
 export type CreateQuestParams = {
   title: string;
+};
+
+export type GetMeResult = {
+  profile: Profile;
+  finishedQuestCount: number;
+};
+
+export type CreateFeedbackParams = {
+  isLike: boolean;
+  content?: string;
 };

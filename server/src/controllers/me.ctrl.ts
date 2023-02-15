@@ -6,7 +6,7 @@ export async function getMe(ctx: Context) {
   try {
     const { userId } = ctx.state.user;
 
-    const me = await meService.getUser(userId);
+    const me = await meService.getProfile(userId);
 
     ctx.body = me;
   } catch (err) {

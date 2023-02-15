@@ -1,16 +1,16 @@
-import useUserStore from '@shared/stores/useUserStore';
 import {applyTokenClient} from 'apis/@client';
 
 import {AuthPayload} from 'apis/types';
 import authStorage from 'storages/authStorage';
+import useProfileStore from '../stores/useProfileStore';
 
 function useApplyAuth() {
-  const setUser = useUserStore(store => store.setUser);
+  const setProfile = useProfileStore(store => store.setProfile);
 
   return (auth: AuthPayload) => {
-    const {user, tokens} = auth;
+    const {profile, tokens} = auth;
 
-    setUser(user);
+    setProfile(profile);
     applyTokenClient(tokens.accessToken);
     authStorage.setTokens(tokens);
   };
