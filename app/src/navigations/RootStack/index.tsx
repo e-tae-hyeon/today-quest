@@ -8,17 +8,18 @@ import VerifyEmailScreen from 'screens/auth/verify-email';
 import PolicyScreen from 'screens/auth/policy';
 import MainTab from 'navigations/MainTab';
 import InitProfileScreen from 'screens/auth/init-profile';
-import useUserStore from '@shared/stores/useUserStore';
 import useSystemStore from '@shared/stores/useSystemStore';
 import TodayResultScreen from 'screens/home/today-result';
 import NewQuestScreen from 'screens/home/new-quest';
 import QuestWriteScreen from 'screens/quest/write';
+import UpdateProfileScreen from 'screens/my/update-profile';
+import useProfileStore from 'features/auth/stores/useProfileStore';
 import {RootStackParamList} from './types';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootStack() {
-  const user = useUserStore(store => store.user);
+  const profile = useProfileStore(store => store.profile);
   const isFirstLaunched = useSystemStore(store => store.isFirstLaunched);
 
   return (
@@ -36,7 +37,7 @@ function RootStack() {
           />
         </Stack.Group>
       )}
-      {!user && (
+      {!profile && (
         // auth
         <Stack.Group>
           <Stack.Screen name="auth" component={AuthScreen} />
@@ -58,6 +59,10 @@ function RootStack() {
       {/* quest */}
       <Stack.Group>
         <Stack.Screen name="questWrite" component={QuestWriteScreen} />
+      </Stack.Group>
+      {/* my */}
+      <Stack.Group>
+        <Stack.Screen name="updateProfile" component={UpdateProfileScreen} />
       </Stack.Group>
     </Stack.Navigator>
   );

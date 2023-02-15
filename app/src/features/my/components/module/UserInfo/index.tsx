@@ -6,15 +6,17 @@ import {Profile} from 'apis/types';
 
 type Props = {
   profile: Profile;
+  onPressUpdateProfile: () => void;
 };
 
-function UserInfo({profile}: Props) {
+function UserInfo({profile, onPressUpdateProfile}: Props) {
   const {nickname} = profile;
 
   return (
     <View className="flex-row items-center justify-between">
       <AppText>{nickname}</AppText>
       <Pressable
+        onPress={onPressUpdateProfile}
         className="flex-row items-center px-2 py-1 rounded-lg bg-neutral-100"
         style={{gap: 2}}>
         <SvgIcon name="pencil" size={typo.Caption.fontSize} />

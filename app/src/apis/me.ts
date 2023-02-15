@@ -1,19 +1,8 @@
 import client from './@client';
-import {
-  GetMyProfileResult,
-  TodayQuest,
-  UpdateProfileParams,
-  User,
-} from './types';
+import {GetMeResult, TodayQuest, UpdateProfileParams} from './types';
 
 export async function getMe() {
-  const res = await client.get<User>('/me');
-
-  return res.data;
-}
-
-export async function getMyProfile() {
-  const res = await client.get<GetMyProfileResult>('/me/profile');
+  const res = await client.get<GetMeResult>('/me');
 
   return res.data;
 }
