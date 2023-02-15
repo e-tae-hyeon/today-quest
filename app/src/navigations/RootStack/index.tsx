@@ -39,7 +39,7 @@ function RootStack() {
           />
         </Stack.Group>
       )}
-      {!profile && (
+      {!profile ? (
         // auth
         <Stack.Group>
           <Stack.Screen name="auth" component={AuthScreen} />
@@ -47,27 +47,33 @@ function RootStack() {
           <Stack.Screen name="verifyEmail" component={VerifyEmailScreen} />
           <Stack.Screen name="policy" component={PolicyScreen} />
         </Stack.Group>
+      ) : (
+        <>
+          {/* base */}
+          <Stack.Group>
+            <Stack.Screen name="mainTab" component={MainTab} />
+            <Stack.Screen name="initProfile" component={InitProfileScreen} />
+          </Stack.Group>
+          {/* home */}
+          <Stack.Group>
+            <Stack.Screen name="todayResult" component={TodayResultScreen} />
+            <Stack.Screen name="newQuest" component={NewQuestScreen} />
+          </Stack.Group>
+          {/* quest */}
+          <Stack.Group>
+            <Stack.Screen name="questWrite" component={QuestWriteScreen} />
+          </Stack.Group>
+          {/* my */}
+          <Stack.Group>
+            <Stack.Screen
+              name="updateProfile"
+              component={UpdateProfileScreen}
+            />
+            <Stack.Screen name="settings" component={SettingsScreen} />
+            <Stack.Screen name="feedback" component={FeedBackScreen} />
+          </Stack.Group>
+        </>
       )}
-      {/* base */}
-      <Stack.Group>
-        <Stack.Screen name="mainTab" component={MainTab} />
-        <Stack.Screen name="initProfile" component={InitProfileScreen} />
-      </Stack.Group>
-      {/* home */}
-      <Stack.Group>
-        <Stack.Screen name="todayResult" component={TodayResultScreen} />
-        <Stack.Screen name="newQuest" component={NewQuestScreen} />
-      </Stack.Group>
-      {/* quest */}
-      <Stack.Group>
-        <Stack.Screen name="questWrite" component={QuestWriteScreen} />
-      </Stack.Group>
-      {/* my */}
-      <Stack.Group>
-        <Stack.Screen name="updateProfile" component={UpdateProfileScreen} />
-        <Stack.Screen name="settings" component={SettingsScreen} />
-        <Stack.Screen name="feedback" component={FeedBackScreen} />
-      </Stack.Group>
     </Stack.Navigator>
   );
 }

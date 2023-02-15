@@ -14,10 +14,12 @@ function MyProfile() {
       <AppText typoStyle="H3">내 정보</AppText>
       <Card>
         <FlexGapContainer gapSize="big">
-          <UserInfo
-            profile={profile!}
-            onPressUpdateProfile={() => navigate('updateProfile')}
-          />
+          {profile && (
+            <UserInfo
+              profile={profile}
+              onPressUpdateProfile={() => navigate('updateProfile')}
+            />
+          )}
           <FinishedQuestCounter count={finishedQuestCount} />
         </FlexGapContainer>
       </Card>
