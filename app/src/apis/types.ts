@@ -109,3 +109,8 @@ export type PageInfo = {
 export type CreateQuestParams = {
   title: string;
 };
+
+export type GetMyProfileResult = {
+  profile: Profile;
+  finishedQuestCount: number;
+};
