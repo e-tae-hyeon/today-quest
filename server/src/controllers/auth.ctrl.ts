@@ -80,3 +80,15 @@ export async function refresh(ctx: Context) {
     errorHandler(ctx, err);
   }
 }
+
+export async function unregister(ctx: Context) {
+  try {
+    const { userId } = ctx.state.user;
+
+    await authService.removeUser(userId);
+
+    ctx.status = 204;
+  } catch (err) {
+    errorHandler(ctx, err);
+  }
+}

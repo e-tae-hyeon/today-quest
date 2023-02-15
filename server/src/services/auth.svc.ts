@@ -138,6 +138,12 @@ class AuthService {
     return tokens;
   }
 
+  async removeUser(userId: number) {
+    await db.user.delete({
+      where: { id: userId },
+    });
+  }
+
   private async validateAuthCode({
     email,
     code,
