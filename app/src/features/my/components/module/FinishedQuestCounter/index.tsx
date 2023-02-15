@@ -10,7 +10,7 @@ function FinishedQuestCounter({count}: Props) {
   return (
     <View className="flex-row items-center justify-between">
       <AppText>내가 달성한 퀘스트</AppText>
-      <AppText>{count}</AppText>
+      <AppText>{count.toLocaleString()}</AppText>
     </View>
   );
 }
