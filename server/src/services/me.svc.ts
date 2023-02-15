@@ -2,17 +2,6 @@ import db from "../utils/db";
 import AppError from "../utils/error";
 
 class MeService {
-  async getUser(userId: number) {
-    const user = await db.user.findUnique({
-      where: { id: userId },
-      include: {
-        profile: true,
-      },
-    });
-
-    return user;
-  }
-
   async getProfile(userId: number) {
     const profile = await db.profile.findUnique({
       where: { userId },

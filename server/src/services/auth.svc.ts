@@ -30,7 +30,7 @@ class AuthService {
 
       return {
         type: "login",
-        payload: { user: exists, tokens },
+        payload: { profile: exists.profile, tokens },
       };
     }
 
@@ -55,7 +55,7 @@ class AuthService {
         },
       });
       const tokens = await this.generateTokens(newUser.id);
-      return { tokens, user: newUser };
+      return { tokens, profile: newUser.profile };
     }
 
     if (registerType === "social") {
@@ -73,7 +73,7 @@ class AuthService {
         },
       });
       const tokens = await this.generateTokens(newUser.id);
-      return { tokens, user: newUser };
+      return { tokens, profile: newUser.profile };
     }
 
     throw new AppError("BadRequest");
@@ -98,7 +98,7 @@ class AuthService {
     const user = socialAccount.user;
     const tokens = await this.generateTokens(user.id);
 
-    return { type: "login", payload: { tokens, user } };
+    return { type: "login", payload: { tokens, profile: user.profile } };
   }
 
   async refresh(token: string) {
