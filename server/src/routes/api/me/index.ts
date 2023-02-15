@@ -6,6 +6,7 @@ import myQuests from "./quests";
 const me = new Router();
 
 me.get("/", requireUser, MeCtrl.getMe);
+me.get("/profile", requireUser, MeCtrl.getMyProfile);
 me.put("/profile", requireUser, MeCtrl.updateProfile);
 
 me.use("/quests", myQuests.routes());

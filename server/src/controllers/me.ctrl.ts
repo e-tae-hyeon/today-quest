@@ -14,6 +14,18 @@ export async function getMe(ctx: Context) {
   }
 }
 
+export async function getMyProfile(ctx: Context) {
+  try {
+    const { userId } = ctx.state.user;
+
+    const myProfile = await meService.getProfile(userId);
+
+    ctx.body = myProfile;
+  } catch (err) {
+    errorHandler(ctx, err);
+  }
+}
+
 export async function updateProfile(ctx: Context) {
   try {
     const { userId } = ctx.state.user;
